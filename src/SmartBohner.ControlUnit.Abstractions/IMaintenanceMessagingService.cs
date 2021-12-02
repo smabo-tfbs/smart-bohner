@@ -6,7 +6,7 @@
         /// Subscribes a new Action with the provided Action and message-type
         /// </summary>
         /// <remarks>
-        /// DONT SUBSCRIBE DELEGATES: Only subsribe real methods
+        /// DONT SUBSCRIBE DELEGATES: Only subscribe real methods
         /// </remarks>
         /// <param name="action"></param>
         /// <param name="messageType"></param>
