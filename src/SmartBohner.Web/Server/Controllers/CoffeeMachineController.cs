@@ -31,5 +31,11 @@ namespace SmartBohner.Web.Server.Controllers
                 await _coffeeMachineService.Shutdown();
             }
         }
+
+        [HttpGet("Power/Status")]
+        public async Task<bool> GetStatus()
+        {
+            return await _coffeeMachineService.IsOn();
+        }
     }
 }
