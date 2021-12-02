@@ -10,13 +10,13 @@
         /// </remarks>
         /// <param name="action"></param>
         /// <param name="messageType"></param>
-        void Subscribe(Action action, MessageType messageType);
+        void Subscribe(Func<Task> action, MessageType messageType);
 
         /// <summary>
         /// Unsubscribes the action from the messaging system
         /// </summary>
         /// <param name="action">The action to unsubscribe</param>
-        void Unsubscribe(Action action);
+        void Unsubscribe(Func<Task> action);
 
         /// <summary>
         /// Publishes a new Message with the provided <see cref="MessageType"/>
