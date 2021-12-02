@@ -14,6 +14,10 @@ namespace SmartBohner.Web.Server.Controllers
             _coffeeMachineService = coffeeMachineService;
         }
 
+        /// <summary>
+        /// Turn on coffee machine
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("Power/On")]
         public async Task On()
         {
@@ -23,6 +27,10 @@ namespace SmartBohner.Web.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Turn off coffee machine
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("Power/Off")]
         public async Task Off()
         {
@@ -32,6 +40,10 @@ namespace SmartBohner.Web.Server.Controllers
             }
         }
 
+        /// <summary>
+        /// Get coffee machine's status
+        /// </summary>
+        /// <returns>True: if coffee machine is on; otherwise false</returns>
         [HttpGet("Power/Status")]
         public async Task<bool> GetStatus()
         {
