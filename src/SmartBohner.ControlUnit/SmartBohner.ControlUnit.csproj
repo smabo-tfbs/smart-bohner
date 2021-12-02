@@ -12,4 +12,8 @@
     <PackageReference Include="System.Device.Gpio" Version="1.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SmartBohner.ControlUnit.Abstractions\SmartBohner.ControlUnit.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>

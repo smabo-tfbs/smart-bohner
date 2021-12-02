@@ -44,7 +44,7 @@ namespace SmartBohner.ControlUnit.Abstractions
         /// <summary>
         /// Executes a calc clean
         /// </summary>
-        void ExecuteCalcClean();
+        Task ExecuteCalcClean();
 
 
         /// <summary>
