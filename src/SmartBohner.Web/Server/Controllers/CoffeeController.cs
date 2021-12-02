@@ -14,18 +14,30 @@ namespace SmartBohner.Web.Server.Controllers
             _coffeeService = coffeeService;
         }
 
+        /// <summary>
+        /// Start espresso brewing process
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("Espresso")]
         public async Task Espresso()
         {
             await _coffeeService.Espresso();
         }
 
+        /// <summary>
+        /// Start lungo brewing process
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("Lungo")]
         public async Task Lungo()
         {
             await _coffeeService.Lungo();
         }
 
+        /// <summary>
+        /// Start coffee brewing process
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("Coffee")]
         public async Task Coffee()
         {
