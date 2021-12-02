@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\SmartBohner.ControlUnit.Abstractions\SmartBohner.ControlUnit.Abstractions.csproj" />
     <ProjectReference Include="..\Client\SmartBohner.Web.Client.csproj" />
     <ProjectReference Include="..\Shared\SmartBohner.Web.Shared.csproj" />
   </ItemGroup>
