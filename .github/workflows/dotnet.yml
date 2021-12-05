@@ -32,9 +32,7 @@ jobs:
       run: dotnet publish $GITHUB_WORKSPACE/src/SmartBohner.Web/Server/ -c Release -r linux-arm
 
     - name: Build
-      run: |
-       cd src \
-       docker build -t smartbohner-web .
+      run: docker build -t smartbohner-web ./src/
       
     - name: Tag
       run: docker tag smartbohner-web refame/smart-bohner
