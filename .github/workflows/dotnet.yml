@@ -30,10 +30,15 @@ jobs:
 
     - name: Publish
       run: dotnet publish $GITHUB_WORKSPACE/src/SmartBohner.Web/Server/ -c Release -r linux-arm
-    
-    - name: Build and push
-      run: docker buildx build -f $GITHUB_WORKSPACE/src/dockerfile -t refame/smart-bohner:latest --platform linux/arm --push 
+  
+    - name: Build
+      run: docker build -t smartbohner-web $GITHUB_WORKSPACE/src
       
+    - name: Tag
+      run: docker tag smartbohner-web refame/smart-bohner
+      
+    - name: Push
+      run: docker push refame/smart-bohner
       
    
         
