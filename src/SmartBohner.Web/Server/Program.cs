@@ -1,4 +1,4 @@
-using SmartBohner.ControlUnit;
+using SmartBohner.ControlUnit.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
