@@ -34,7 +34,9 @@ jobs:
     - name: Build and push
       uses: docker/build-push-action@v2
       with:
-        dockerfile: $GITHUB_WORKSPACE/src/dockerfile
+        push: true
+        tags: refame/smart-bohner:latest
+        file: $GITHUB_WORKSPACE/src/dockerfile
       
       
       
