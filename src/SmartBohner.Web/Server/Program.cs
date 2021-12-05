@@ -1,6 +1,10 @@
+using SmartBohner.ControlUnit.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.RegisterControlUnit();
+
 builder.Services.AddSwaggerDocument(c =>
 {
     c.Title = "Smart-Bohner API";
