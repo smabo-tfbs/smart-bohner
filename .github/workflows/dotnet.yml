@@ -32,12 +32,7 @@ jobs:
       run: dotnet publish $GITHUB_WORKSPACE/src/SmartBohner.Web/Server/ -c Release -r linux-arm
     
     - name: Build and push
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        tags: refame/smart-bohner:latest
-        file: $GITHUB_WORKSPACE/src/dockerfile
-      
+      run: docker buildx build -f $GITHUB_WORKSPACE/src/dockerfile -t refame/smart-bohner:latest --platform linux/arm --push 
       
       
    
