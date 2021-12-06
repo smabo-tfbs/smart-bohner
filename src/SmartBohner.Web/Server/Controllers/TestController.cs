@@ -9,7 +9,7 @@ namespace SmartBohner.Web.Server.Controllers
         [HttpGet]
         public async Task<string> Get()
         {
-            return "HelloDocker!!!";
+            return "HelloDocker !!!!!!";
         }
     }
 }
