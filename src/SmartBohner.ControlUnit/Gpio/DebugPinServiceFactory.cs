@@ -19,7 +19,7 @@ namespace SmartBohner.ControlUnit.Gpio
         {
             try
             {
-                controller.OpenPin(pin);
+                controller.OpenPin(pin, PinMode.Output);
                 logger.LogInformation($"Opened pin: {pin}");
             }
             catch (Exception)
