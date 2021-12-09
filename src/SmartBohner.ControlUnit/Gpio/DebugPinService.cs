@@ -6,29 +6,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartBohner.ControlUnit
+namespace SmartBohner.ControlUnit.Gpio
 {
     internal class DebugPinService : IDebugPinService
     {
-        private GpioController controller = new GpioController();
+        private GpioController controller;
+
+        public DebugPinService(GpioController controller)
+        {
+            this.controller = controller;
+        }
 
         public async Task OpenPin(int pin)
         {
-            if (!controller.IsPinOpen(pin))
-            {
-                controller.OpenPin(pin);
-            }
-
             controller.Write(pin, PinValue.High);
         }
 
         public async Task ClosePin(int pin)
         {
-            if (!controller.IsPinOpen(pin))
-            {
-                controller.OpenPin(pin);
-            }
-
             controller.Write(pin, PinValue.Low);
         }
 
