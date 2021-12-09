@@ -9,6 +9,7 @@ namespace SmartBohner.ControlUnit.Extensions
         {
             serviceCollection.AddTransient<ICoffeeMachineService, CoffeeMachineService>();
             serviceCollection.AddTransient<ICoffeeService, CoffeeService>();
+            serviceCollection.AddTransient<IDebugPinService, DebugPinService>();
             serviceCollection.AddSingleton<IMaintenanceMessagingService, MaintenanceMessagingService>();
             serviceCollection.AddTransient<IMaintenanceService, MaintenanceService>();
 
