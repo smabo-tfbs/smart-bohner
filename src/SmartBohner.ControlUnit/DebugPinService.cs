@@ -15,16 +15,19 @@ namespace SmartBohner.ControlUnit
         public async Task OpenPin(int pin)
         {
             controller.OpenPin(pin);
+            controller.Write(pin, PinValue.High);
         }
 
         public async Task ClosePin(int pin)
         {
-            controller.ClosePin(pin);
+            controller.OpenPin(pin);
+            controller.Write(pin, PinValue.Low);
         }
 
         public async Task<string> GetPin(int pin)
         {
-            return controller.GetPinMode(pin).ToString();
+            var pinValue = controller.Read(pin); 
+            return pinValue.ToString();
         }
     }
 }
