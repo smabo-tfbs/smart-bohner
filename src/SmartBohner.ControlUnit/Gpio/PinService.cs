@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace SmartBohner.ControlUnit.Gpio
 {
-    internal class DebugPinService : IDebugPinService
+    internal class PinService : IPinService
     {
         private GpioController controller;
 
-        public DebugPinService(GpioController controller)
+        public PinService(GpioController controller)
         {
             this.controller = controller;
         }

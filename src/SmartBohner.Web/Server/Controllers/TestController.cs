@@ -7,9 +7,9 @@ namespace SmartBohner.Web.Server.Controllers
     [Route("api/[controller]")]
     public class TestController : ControllerBase
     {
-        private readonly IDebugPinService debugPinService;
+        private readonly IPinService debugPinService;
 
-        public TestController(IDebugPinService debugPinService)
+        public TestController(IPinService debugPinService)
         {
             this.debugPinService = debugPinService;
         }
