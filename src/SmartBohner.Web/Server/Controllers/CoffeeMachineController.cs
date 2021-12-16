@@ -8,10 +8,12 @@ namespace SmartBohner.Web.Server.Controllers
     public class CoffeeMachineController : ControllerBase
     {
         private readonly ICoffeeMachineService _coffeeMachineService;
+        private readonly ILogger<CoffeeMachineController> logger;
 
-        public CoffeeMachineController(ICoffeeMachineService coffeeMachineService)
+        public CoffeeMachineController(ICoffeeMachineService coffeeMachineService, ILogger<CoffeeMachineController> logger)
         {
             _coffeeMachineService = coffeeMachineService;
+            this.logger = logger;
         }
 
         /// <summary>
@@ -24,6 +26,7 @@ namespace SmartBohner.Web.Server.Controllers
             if (!await _coffeeMachineService.IsOn())
             {
                 await _coffeeMachineService.Start();
+                logger.LogInformation("Started coffee machine");
             }
         }
 
@@ -37,6 +40,7 @@ namespace SmartBohner.Web.Server.Controllers
             if (await _coffeeMachineService.IsOn())
             {
                 await _coffeeMachineService.Shutdown();
+                logger.LogInformation("Shutdown coffee machine");
             }
         }
 

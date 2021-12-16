@@ -1,4 +1,5 @@
 using Serilog;
+using Serilog.Formatting.Json;
 using SmartBohner.ControlUnit.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +19,13 @@ configuration
     .Enrich.WithProperty("Application", "smabo-webapi")
     .WriteTo.Console()
     .WriteTo.Debug()
-    .WriteTo.Seq("http://it01.refame.net:5341", apiKey: "WYCYRdPTNVREN0eoILFa");
+    .WriteTo.File(
+            new JsonFormatter(), 
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "smabo", "logs", "log.json"), 
+            rollingInterval: RollingInterval.Day, 
+            rollOnFileSizeLimit: true, 
+            fileSizeLimitBytes: 1024 * 1024 * 1024, 
+            shared: true);
 
 builder.WebHost.UseSerilog(configuration.CreateLogger());
 
