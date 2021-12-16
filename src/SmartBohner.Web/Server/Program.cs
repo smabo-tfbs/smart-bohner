@@ -34,8 +34,6 @@ builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
-app.UseSerilogRequestLogging();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -56,6 +54,7 @@ app.UseRouting();
 
 app.UseOpenApi();
 app.UseSwaggerUi3();
+app.UseSerilogRequestLogging();
 
 app.MapRazorPages();
 app.MapControllers();
