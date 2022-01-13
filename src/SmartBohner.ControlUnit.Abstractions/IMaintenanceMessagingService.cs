@@ -10,19 +10,19 @@
         /// </remarks>
         /// <param name="action"></param>
         /// <param name="messageType"></param>
-        void Subscribe(Func<Task> action, MessageType messageType);
+        void Subscribe(Func<PinEventType, Task> action, MessageType messageType);
 
         /// <summary>
         /// Unsubscribes the action from the messaging system
         /// </summary>
         /// <param name="action">The action to unsubscribe</param>
-        void Unsubscribe(Func<Task> action);
+        void Unsubscribe(Func<PinEventType, Task> action);
 
         /// <summary>
         /// Publishes a new Message with the provided <see cref="MessageType"/>
         /// </summary>
         /// <param name="messageType">The message-type</param>
         /// <returns></returns>
-        Task Publish(MessageType messageType);
+        Task Publish(MessageType messageType, PinEventType pinEventType);
     }
 }

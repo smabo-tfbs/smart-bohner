@@ -55,12 +55,6 @@ namespace SmartBohner.ControlUnit.AspNet
             factory.WithPinAsInput(5);
             factory.WithPinAsInput(6);
             factory.WithPinAsInput(12);
-            //factory.WithPinAsInput(13);
-            //factory.WithPinAsInput(19);
-            //factory.WithPinAsInput(16);
-            //factory.WithPinAsInput(26);
-            //factory.WithPinAsInput(20);
-            //factory.WithPinAsInput(21);
         }
 
         private static void InitMessagingServiceInternal(this WebApplication app)
@@ -75,15 +69,15 @@ namespace SmartBohner.ControlUnit.AspNet
                 throw new ArgumentNullException();
             }
 
-            gpioChangeContainer.Add(13, () => messenger.Publish(MessageType.CalcClean));
-            gpioChangeContainer.Add(19, () => messenger.Publish(MessageType.Clean));
-            gpioChangeContainer.Add(16, () => messenger.Publish(MessageType.NoWater));
-            gpioChangeContainer.Add(26, () => messenger.Publish(MessageType.WasteFull));
-            gpioChangeContainer.Add(20, () => messenger.Publish(MessageType.NoBeans));
-            gpioChangeContainer.Add(21, () => messenger.Publish(MessageType.Alarm));
+            gpioChangeContainer.Add(13, MessageType.CalcClean);
+            gpioChangeContainer.Add(19, MessageType.Clean);
+            gpioChangeContainer.Add(16, MessageType.NoWater);
+            gpioChangeContainer.Add(26, MessageType.WasteFull);
+            gpioChangeContainer.Add(20, MessageType.NoBeans);
+            gpioChangeContainer.Add(21, MessageType.Alarm);
 
 
-            messenger.Subscribe(async () => logger.LogInformation("No water!!!"), MessageType.NoWater);
+            messenger.Subscribe(async x => logger.LogInformation("No water!!!"), MessageType.NoWater);
 
         }
     }
