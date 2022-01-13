@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using SmartBohner.ControlUnit.Abstractions;
+using SmartBohner.ControlUnit.Gpio;
 
 namespace SmartBohner.ControlUnit.Extensions
 {
@@ -9,6 +10,7 @@ namespace SmartBohner.ControlUnit.Extensions
         {
             serviceCollection.AddTransient<ICoffeeMachineService, CoffeeMachineService>();
             serviceCollection.AddTransient<ICoffeeService, CoffeeService>();
+            serviceCollection.AddSingleton(PinServiceFactory.GetDebugPinService);
             serviceCollection.AddSingleton<IMaintenanceMessagingService, MaintenanceMessagingService>();
             serviceCollection.AddTransient<IMaintenanceService, MaintenanceService>();
 

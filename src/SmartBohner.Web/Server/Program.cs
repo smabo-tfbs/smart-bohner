@@ -1,4 +1,6 @@
-using SmartBohner.ControlUnit;
+using Serilog;
+using Serilog.Formatting.Json;
+using SmartBohner.ControlUnit.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +13,21 @@ builder.Services.AddSwaggerDocument(c =>
     c.Version = "v1";
     c.Description = "Communicate with smart coffee machine.";
 });
+
+LoggerConfiguration configuration = new LoggerConfiguration();
+configuration
+    .Enrich.WithProperty("Application", "smabo-webapi")
+    .WriteTo.Console()
+    .WriteTo.Debug()
+    .WriteTo.File(
+            new JsonFormatter(), 
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "smabo", "logs", "log.json"), 
+            rollingInterval: RollingInterval.Day, 
+            rollOnFileSizeLimit: true, 
+            fileSizeLimitBytes: 1024 * 1024 * 1024, 
+            shared: true);
+
+builder.WebHost.UseSerilog(configuration.CreateLogger());
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -37,6 +54,7 @@ app.UseRouting();
 
 app.UseOpenApi();
 app.UseSwaggerUi3();
+app.UseSerilogRequestLogging();
 
 app.MapRazorPages();
 app.MapControllers();
