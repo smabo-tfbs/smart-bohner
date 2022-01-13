@@ -55,12 +55,12 @@ namespace SmartBohner.ControlUnit.AspNet
             factory.WithPinAsInput(5);
             factory.WithPinAsInput(6);
             factory.WithPinAsInput(12);
-            factory.WithPinAsInput(13);
-            factory.WithPinAsInput(19);
-            factory.WithPinAsInput(16);
-            factory.WithPinAsInput(26);
-            factory.WithPinAsInput(20);
-            factory.WithPinAsInput(21);
+            //factory.WithPinAsInput(13);
+            //factory.WithPinAsInput(19);
+            //factory.WithPinAsInput(16);
+            //factory.WithPinAsInput(26);
+            //factory.WithPinAsInput(20);
+            //factory.WithPinAsInput(21);
         }
 
         private static void InitMessagingServiceInternal(this WebApplication app)

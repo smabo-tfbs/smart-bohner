@@ -17,6 +17,11 @@ namespace SmartBohner.ControlUnit.Extensions
 
         public void Add(int pin, Action onChanged)
         {
+            if (!controller.IsPinOpen(pin))
+            {
+                controller.OpenPin(pin);
+            }
+
             controller.RegisterCallbackForPinValueChangedEvent(pin, PinEventTypes.Rising, (x, y) => onChanged());
         }
 
