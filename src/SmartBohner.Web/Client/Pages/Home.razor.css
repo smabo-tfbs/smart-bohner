@@ -1,0 +1,20 @@
+﻿header {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main {
+    height: 320px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,13 @@
+﻿.brewing-card {
+    width: 205px;
+    height: 205px;
+    border-radius: 25px;
+    background-color: #2D3638;
+}
+
+.brewing-card-active {
+    width: 300px;
+    height: 300px;
+    border-radius: 25px;
+    background-color: #364244;
+}

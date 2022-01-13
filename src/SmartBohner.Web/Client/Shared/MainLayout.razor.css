@@ -1,5 +1,13 @@
 .page {
-    position: relative;
+    background-color: #232323;
+    height: 100vh;
+    width: 100vw;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
+}
+
+.page-container {
+    width: 100%;
+    max-width: 760px;
+    max-height: 480px;
 }

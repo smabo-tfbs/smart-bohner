@@ -1,0 +1,24 @@
+﻿.nav-card {
+    width: 205px;
+    height: 30px;
+    background-color: #364244;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 16px;
+    
+}
+
+.nav-card-icon {
+    font-size: 20px;
+    color: #9B4E00;
+}
+
+.nav-card-title {
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    color: #9B4E00;
+    margin: auto;
+}

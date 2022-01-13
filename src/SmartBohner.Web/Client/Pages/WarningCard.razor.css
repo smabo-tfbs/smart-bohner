@@ -1,0 +1,26 @@
+﻿.warning-card {
+    width: 300px;
+    height: 40px;
+    background-color: #364244;
+    border-radius: 20px;
+    animation-name: warning;
+    animation-duration: 0.2s;
+}
+
+@keyframes warning {
+    0% {
+        margin-top: 120px;
+    }
+    25% {
+        margin-top: 90px;
+    }
+    50% {
+        margin-top: 60px;
+    }
+    75% {
+        margin-top: 30px;
+    }
+    100% {
+        margin-top: 0px;
+    }
+}
