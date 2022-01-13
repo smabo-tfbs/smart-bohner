@@ -1,0 +1,30 @@
+﻿.button-left{
+    background-color: #364244;
+    color: #9B4E00;
+    width: 150px;
+    text-align:center;
+    border: none;
+}
+.button-center {
+    background-color: #364244;
+    color: #9B4E00;
+    width: 150px;
+    border: none;
+    text-align: center;
+}
+.button-right {
+    background-color: #364244;
+    color: #9B4E00;
+    width: 150px;
+    text-align: center;
+    border: none;
+}
+.button-left:hover {
+    background-color: #424D4F;
+}
+.button-center:hover {
+    background-color: #424D4F;
+}
+.button-right:hover {
+    background-color: #424D4F;
+}
