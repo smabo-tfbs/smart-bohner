@@ -16,7 +16,7 @@ namespace SmartBohner.ControlUnit.AspNet
     {
         public static void InitControlUnit(this WebApplication app)
         {
-            app.InitButtonsInternal(); 
+            app.InitButtonsInternal();
             app.InitDiodsInternal();
             app.InitMessagingServiceInternal();
         }
@@ -69,15 +69,15 @@ namespace SmartBohner.ControlUnit.AspNet
             var gpioChangeContainer = app.Services.GetService<IGpioChangeContainer>();
             var logger = app.Services.GetService<ILogger<IMaintenanceMessagingService>>();
 
-            if (messenger is null 
+            if (messenger is null
                 || gpioChangeContainer is null)
             {
                 throw new ArgumentNullException();
             }
 
-            gpioChangeContainer.Add(12, () => messenger.Publish(MessageType.Alarm));
-            gpioChangeContainer.Add(12, () => messenger.Publish(MessageType.CalcClean));
+            gpioChangeContainer.Add(13, () => messenger.Publish(MessageType.CalcClean));
             gpioChangeContainer.Add(19, () => messenger.Publish(MessageType.Clean));
+            gpioChangeContainer.Add(16, () => messenger.Publish(MessageType.NoWater));
             gpioChangeContainer.Add(26, () => messenger.Publish(MessageType.WasteFull));
             gpioChangeContainer.Add(20, () => messenger.Publish(MessageType.NoBeans));
             gpioChangeContainer.Add(21, () => messenger.Publish(MessageType.Alarm));
