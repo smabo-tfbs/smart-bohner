@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using SmartBohner.ControlUnit.Abstractions;
 using System.Device.Gpio;
+using System.Security.Cryptography.X509Certificates;
 
 namespace SmartBohner.ControlUnit.Gpio
 {
@@ -11,7 +12,7 @@ namespace SmartBohner.ControlUnit.Gpio
     public class PinServiceFactory
     {
         private readonly ILogger<PinServiceFactory> logger;
-        private readonly GpioController controller = new();
+        private readonly List<Pin> pins = new List<Pin>();
 
         /// <summary>
         /// Creates a new instance of the <see cref="PinServiceFactory"/>-class.
@@ -27,19 +28,38 @@ namespace SmartBohner.ControlUnit.Gpio
         /// </summary>
         /// <param name="pin"></param>
         /// <returns></returns>
-        public PinServiceFactory WithPinOpened(int pin)
+        public PinServiceFactory WithPinAsOutput(int pin)
         {
-            try
+            RegisterInternal(pin, PinMode.Output);
+            return this;
+        }
+
+        /// <summary>
+        /// Specified that a pin is opened for input-signals
+        /// </summary>
+        /// <param name="pin">The pin to set</param>
+        /// <returns></returns>
+        public PinServiceFactory WithPinAsInput(int pin)
+        {
+            RegisterInternal(pin, PinMode.Input);
+            return this;
+        }
+
+        public PinServiceFactory WithPinAsInput(int pin, Action onChanged)
+        {
+            RegisterInternal(pin, PinMode.Input, onChanged);
+            return this;
+        }
+
+        private void RegisterInternal(int pin, PinMode mode, Action? onChanged = null)
+        {
+            if (pins.Any(x => x.Number == pin))
             {
-                controller.OpenPin(pin, PinMode.Output);
-                logger.LogInformation($"Opened pin: {pin}");
-            }
-            catch (Exception)
-            {
-                logger.LogWarning($"Error opening pin: {pin}");
+                throw new InvalidOperationException("pin already added");
             }
 
-            return this;
+            pins.Add(new(pin, mode, onChanged));
+            logger.LogInformation($"Added {pin} set to {mode}");
         }
 
         /// <summary>
@@ -48,23 +68,26 @@ namespace SmartBohner.ControlUnit.Gpio
         /// <returns></returns>
         public IPinService Build()
         {
-            return new PinService(controller);
+            var controller = new GpioController();
+            var exceptions = new List<Exception>();
+
+            foreach (Pin pin in pins)
+            {
+                try
+                {
+                    controller.SetPinMode(pin.Number, pin.Mode);
+                }
+                catch (Exception ex)
+                {
+                    exceptions.Add(ex);
+                }
+            }
+
+            return exceptions.Any()
+                ? throw new AggregateException(exceptions)
+                : new PinService(controller);
         }
 
-        /// <summary>
-        /// Creates a default-instance with some ports opened
-        /// </summary>
-        /// <param name="provider"></param>
-        /// <returns></returns>
-        internal static IPinService GetDebugPinService(IServiceProvider provider)
-        {
-            return new PinServiceFactory(provider.GetService<ILogger<PinServiceFactory>>())
-                .WithPinOpened(4)
-                .WithPinOpened(18)
-                .WithPinOpened(20)
-                .WithPinOpened(23)
-                .WithPinOpened(24)
-                .Build();
-        }
+        private record Pin(int Number, PinMode Mode, Action? onChanged = null);
     }
 }
