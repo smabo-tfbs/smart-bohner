@@ -1,5 +1,6 @@
 using Serilog;
 using Serilog.Formatting.Json;
+using SmartBohner.ControlUnit.AspNet;
 using SmartBohner.ControlUnit.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -60,4 +61,5 @@ app.MapRazorPages();
 app.MapControllers();
 app.MapFallbackToFile("index.html");
 
+app.InitControlUnit();
 app.Run();

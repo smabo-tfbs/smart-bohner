@@ -1,17 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmartBohner.ControlUnit.Abstractions;
+using SmartBohner.ControlUnit.Gpio;
 
 namespace SmartBohner.Web.Server.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/test/[controller]")]
     public class TestController : ControllerBase
     {
         private readonly IPinService debugPinService;
 
-        public TestController(IPinService debugPinService)
+        public TestController(PinServiceFactory debugPinService)
         {
-            this.debugPinService = debugPinService;
+            this.debugPinService = debugPinService.Build();
         }
 
         [HttpGet]
@@ -37,5 +38,6 @@ namespace SmartBohner.Web.Server.Controllers
         {
             return debugPinService.ClosePin(pin);
         }
+
     }
 }

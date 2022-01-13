@@ -2,7 +2,7 @@
 
 namespace SmartBohner.ControlUnit
 {
-    internal     class MaintenanceMessagingService : IMaintenanceMessagingService
+    internal class MaintenanceMessagingService : IMaintenanceMessagingService
     {
         internal Dictionary<MessageType, List<Func<Task>>> Callbacks { get; } = Enum.GetValues<MessageType>().ToList().ToDictionary(x => x, x => new List<Func<Task>>());
 

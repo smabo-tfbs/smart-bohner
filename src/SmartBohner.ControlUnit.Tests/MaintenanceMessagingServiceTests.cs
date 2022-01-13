@@ -27,6 +27,9 @@ namespace SmartBohner.ControlUnit.Tests
             service.Callbacks[MessageType.NoWater].Add(() => throw new InvalidOperationException());
             service.Callbacks[MessageType.WasteFull].Add(() => throw new InvalidOperationException());
             service.Callbacks[MessageType.NoBeans].Add(() => throw new InvalidOperationException());
+            service.Callbacks[MessageType.Clean].Add(() => throw new InvalidOperationException());
+            service.Callbacks[MessageType.CalcClean].Add(() => throw new InvalidOperationException());
+
             service.Callbacks[MessageType.Alarm].Add(async () => called = true);
 
             Assert.That(() => service.Publish(MessageType.Alarm), Throws.Nothing);
