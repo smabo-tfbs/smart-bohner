@@ -17,11 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBohner.ControlUnit", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{FC9224AD-49FB-4804-B2F7-82E5FE6B0BD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBohner.ControlUnit.Abstractions", "SmartBohner.ControlUnit.Abstractions\SmartBohner.ControlUnit.Abstractions.csproj", "{067EE1C8-E369-46FF-B236-989D9ACA6314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBohner.ControlUnit.Abstractions", "SmartBohner.ControlUnit.Abstractions\SmartBohner.ControlUnit.Abstractions.csproj", "{067EE1C8-E369-46FF-B236-989D9ACA6314}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4980EB24-A4D1-4A86-B5FE-FCBC3D73B5E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartBohner.ControlUnit.Tests", "SmartBohner.ControlUnit.Tests\SmartBohner.ControlUnit.Tests.csproj", "{9F2FD6FB-5FEB-4285-9B7E-62EE3B0208D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartBohner.ControlUnit.Tests", "SmartBohner.ControlUnit.Tests\SmartBohner.ControlUnit.Tests.csproj", "{9F2FD6FB-5FEB-4285-9B7E-62EE3B0208D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

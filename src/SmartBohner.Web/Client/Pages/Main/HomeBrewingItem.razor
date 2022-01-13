@@ -1,0 +1,7 @@
+﻿<div class="card @(IsActive ? "card-active" : "card-inactive")">
+</div>
+
+@code {
+    [Parameter]
+    public bool IsActive { get; set; }
+}
