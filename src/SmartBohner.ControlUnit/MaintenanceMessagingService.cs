@@ -9,7 +9,7 @@ namespace SmartBohner.ControlUnit
 
         public async Task Publish(MessageType messageType, PinEventType pinEventType)
         {
-            await Task.Run(() => Callbacks[messageType].ForEach(async x => await x()));
+            await Task.Run(() => Callbacks[messageType].ForEach(async x => await x(pinEventType)));
         }
 
         public void Subscribe(Func<PinEventType, Task> action, MessageType messageType)
