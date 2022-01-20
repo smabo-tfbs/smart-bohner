@@ -14,7 +14,7 @@ namespace SmartBohner.ControlUnit.Tests
         {
             var service = new MaintenanceMessagingService();
 
-            service.Subscribe(async () => { }, MessageType.Alarm);
+            service.Subscribe(async x => { }, MessageType.Alarm);
 
             Assert.That(service.Callbacks[MessageType.Alarm], Has.Count.EqualTo(1));
         }
@@ -24,12 +24,15 @@ namespace SmartBohner.ControlUnit.Tests
         {
             bool called = false;
             var service = new MaintenanceMessagingService();
-            service.Callbacks[MessageType.NoWater].Add(() => throw new InvalidOperationException());
-            service.Callbacks[MessageType.WasteFull].Add(() => throw new InvalidOperationException());
-            service.Callbacks[MessageType.NoBeans].Add(() => throw new InvalidOperationException());
-            service.Callbacks[MessageType.Alarm].Add(async () => called = true);
+            service.Callbacks[MessageType.NoWater].Add(x => throw new InvalidOperationException());
+            service.Callbacks[MessageType.WasteFull].Add(x => throw new InvalidOperationException());
+            service.Callbacks[MessageType.NoBeans].Add(x => throw new InvalidOperationException());
+            service.Callbacks[MessageType.Clean].Add(x => throw new InvalidOperationException());
+            service.Callbacks[MessageType.CalcClean].Add(x => throw new InvalidOperationException());
 
-            Assert.That(() => service.Publish(MessageType.Alarm), Throws.Nothing);
+            service.Callbacks[MessageType.Alarm].Add(async x => called = x == PinEventType.Rising);
+
+            Assert.That(() => service.Publish(MessageType.Alarm, PinEventType.Rising), Throws.Nothing);
         }
 
         [Test]
@@ -44,7 +47,7 @@ namespace SmartBohner.ControlUnit.Tests
 
             Assert.That(service.Callbacks[MessageType.Alarm], Is.Empty);
 
-            Task TestFunc()
+            Task TestFunc(PinEventType eventType)
             {
                 return Task.CompletedTask;
             }

@@ -9,5 +9,7 @@
         WasteFull,
         NoBeans,
         Alarm,
+        Clean,
+        CalcClean,
     }
 }
