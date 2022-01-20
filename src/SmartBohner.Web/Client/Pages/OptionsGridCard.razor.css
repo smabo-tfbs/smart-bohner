@@ -1,0 +1,13 @@
+﻿.options-grid-card {
+    width: 100%;
+    height: 50px;
+    background-color: #364244;
+    border-radius: 25px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #CF6800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

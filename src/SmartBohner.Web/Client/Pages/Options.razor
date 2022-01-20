@@ -1,0 +1,28 @@
+﻿@page "/options"
+
+<header>
+    <NavigationItem Title="Hauptmenü" Icon="house-fill" CardClicked="@(() => Nav.NavigateTo("home"))"></NavigationItem>
+</header>
+<main>
+    <div class="options-container">
+        <div class="aroma-plus">
+            <OptionsGridCard DisplayText="Aroma-Plus"></OptionsGridCard>
+        </div>
+        <div class="water">
+            <OptionsGridCard DisplayText="Wasser"></OptionsGridCard>
+        </div>
+        <div class="calc-clean">
+            <OptionsGridCard DisplayText="Entkalken"></OptionsGridCard>
+        </div>
+        <div class="water-steam">
+            <OptionsGridCard DisplayText="Wasserdampf"></OptionsGridCard>
+        </div>
+        <div class="power-off">
+            <OptionsGridCard DisplayText="Ausschalten"></OptionsGridCard>
+        </div>
+    </div>
+</main>
+
+@code {
+
+}

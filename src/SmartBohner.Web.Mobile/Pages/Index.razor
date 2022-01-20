@@ -1,0 +1,47 @@
+﻿@page "/"
+@*@inject CoffeeController coffeeController*@
+
+
+<style>
+    body{background-color:#232323; color:#9B4E00; font-family:Pacifico} 
+    h1 {text-align:center;}
+    header{color:red;}
+    </style>
+    @if (visible == true)
+{
+    <div class="banner-info">
+                SAG ICH JA
+         <button @onclick="@Dismiss" class="float-right btn">OKI</button>
+    </div>     
+}
+<PageTitle>Index</PageTitle>
+
+<h1>Willkommen beim Smartbohener</h1>
+
+<button class="button-left" onclick="MakeCoffee">Kaffee</button>
+<button class="button-center" onclick="MakeEspresso" >Espresso</button>
+<button class="button-right" onclick="MakeEspressoLungo" >Espresso Lungo</button>
+
+
+
+@code {
+    //public async Task MakeCoffee()
+    //{
+    //    await coffeeController.Coffee();
+    //}
+    //public async Task MakeEspresso()
+    //{
+    //    await coffeeController.Espresso();
+    //}
+    //public async Task MakeEspressoLungo()
+    //{
+    //    await coffeeController.Lungo();
+    //}
+    private bool visible = false;
+    public async Task<bool> Dismiss()
+    {
+      return visible == false;
+    
+    }
+
+}

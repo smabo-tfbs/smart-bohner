@@ -1,0 +1,31 @@
+﻿@page "/home"
+
+<header>
+    <NavigationItem Title="Optionen" Icon="gear-fill" CardClicked="@(() => Nav.NavigateTo("options"))"></NavigationItem>
+    <NavigationItem Title="Josua Egger" Icon="person-fill"></NavigationItem>
+</header>
+<main>
+    <BrewingCard CoffeeType=@_brewingCards[0] ActiveChanged="() => OnChangeActive(0)"></BrewingCard>
+    <BrewingCard IsActive="true" CoffeeType=@_brewingCards[1]></BrewingCard>
+    <BrewingCard CoffeeType=@_brewingCards[2] ActiveChanged="() => OnChangeActive(2)"></BrewingCard>
+</main>
+<footer>
+    <WarningCard></WarningCard>
+</footer>
+
+@code {
+    private List<CoffeeType> _brewingCards = new List<CoffeeType>
+    {
+        CoffeeType.Espresso,
+        CoffeeType.Coffee,
+        CoffeeType.Lungo
+    };
+
+    private void OnChangeActive(int index)
+    {
+        var currentActive = _brewingCards[1];
+        _brewingCards[1] = _brewingCards[index];
+        _brewingCards[index] = currentActive;
+    }
+
+}

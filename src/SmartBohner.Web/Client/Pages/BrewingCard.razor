@@ -1,0 +1,51 @@
+﻿
+<div class="brewing-card @(IsActive ? "brewing-card-active" : "brewing-card-inactive")" @onclick="() => ActiveChanged.InvokeAsync()">
+    <div class="brewing-card-image @(IsActive ? "brewing-card-image-active" : "brewing-card-image-inactive")">
+        <BrewingCardIcon CoffeeType=@_coffeeType IsActive=@IsActive></BrewingCardIcon>
+    </div>
+    <p class="brewing-card-text @(IsActive ? "brewing-card-text-active" : "brewing-card-text-inactive")">@_cardText</p>
+</div>
+
+@code {
+    private string _cardText;
+    private CoffeeType _coffeeType = CoffeeType.Coffee;
+
+    [Parameter]
+    public bool IsActive { get; set; }
+
+    [Parameter]
+    public CoffeeType CoffeeType
+    {
+        get => _coffeeType;
+        set
+        {
+            _coffeeType = value;
+            Refresh();
+        }
+    }
+
+    [Parameter]
+    public EventCallback ActiveChanged { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Refresh();
+    }
+
+    private void Refresh()
+    {
+        switch (CoffeeType)
+        {
+            case CoffeeType.Espresso:
+                _cardText = "Espresso";
+                break;
+            case CoffeeType.Lungo:
+                _cardText = "Lungo";
+                break;
+            default:
+                _cardText = "Kaffee";
+                break;
+        }
+    }
+
+}

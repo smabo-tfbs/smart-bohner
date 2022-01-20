@@ -1,0 +1,22 @@
+﻿<div class="nav-card" @onclick="() => CardClicked.InvokeAsync()">
+    <i class="nav-card-icon bi bi-@Icon.ToLower()"></i>
+    <span class="nav-card-title">@Title</span>
+</div>
+
+@code {
+    private string _icon = "image";
+
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public string Icon
+    {
+        get => _icon;
+        set => _icon = value;
+    }
+
+    [Parameter]
+    public EventCallback CardClicked { get; set; }
+
+}

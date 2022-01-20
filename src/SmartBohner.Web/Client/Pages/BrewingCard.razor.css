@@ -1,0 +1,45 @@
+﻿.brewing-card {
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.brewing-card-inactive {
+    width: 205px;
+    height: 205px;
+    background-color: #2D3638;
+}
+
+.brewing-card-active {
+    width: 300px;
+    height: 300px;
+    background-color: #364244;
+}
+
+.brewing-card-image-inactive {
+    width: 100px;
+    margin-bottom: 5px;
+}
+
+.brewing-card-image-active {
+    width: 160px;
+    margin-bottom: 1rem;
+}
+
+.brewing-card-text {
+    font-family: 'Pacifico', cursive;
+    text-shadow: 1px 1px #2B3334;
+}
+
+.brewing-card-text-inactive {
+    font-size: 1.5rem;
+    color: #753B00;
+}
+
+.brewing-card-text-active {
+    font-size: 2rem;
+    color: #9B4E00;
+}
+
