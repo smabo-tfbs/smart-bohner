@@ -51,18 +51,16 @@ namespace SmartBohner.ControlUnit.Extensions
         {
             if (pinChangedUpInfo.Find(x => x.Pin == pin) is { } foundPin)
             {
-                if (foundPin.HitCount <= 4)
+                if (foundPin.HitCount >= 4)
                 {
                     logger.LogInformation($"Pin {foundPin.Pin}: HitCount is {foundPin.HitCount}. Publish message");
                     maintenanceMessagingService.Publish(messageType, pinEventType);
                 }
-                else
-                {
-                    logger.LogInformation($"Pin {foundPin.Pin}: HitCount is {foundPin.HitCount}. Reseting timer");
-                    foundPin.Timer.Stop();
-                    foundPin.Timer.Start();
-                }
 
+
+                logger.LogInformation($"Pin {foundPin.Pin}: HitCount is {foundPin.HitCount}. Reseting timer");
+                foundPin.Timer.Stop();
+                foundPin.Timer.Start();
                 foundPin.HitCount++;
             }
             else
