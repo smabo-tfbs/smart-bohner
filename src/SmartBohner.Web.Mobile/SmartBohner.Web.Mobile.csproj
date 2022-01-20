@@ -17,4 +17,8 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\icons_coffe\" />
+  </ItemGroup>
+
 </Project>
