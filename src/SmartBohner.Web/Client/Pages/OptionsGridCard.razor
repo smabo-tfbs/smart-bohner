@@ -1,0 +1,13 @@
+﻿<div class="options-grid-card" @onclick="() => CardClicked.InvokeAsync()">
+    @DisplayText
+</div>
+
+@code {
+
+    [Parameter]
+    public string DisplayText { get; set; }
+
+    [Parameter]
+    public EventCallback CardClicked { get; set; }
+
+}

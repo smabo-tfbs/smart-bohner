@@ -1,0 +1,50 @@
+﻿header {
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+main {
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.options-container {
+    max-width: 480px;
+    max-height: 150px;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    column-gap: 18px;
+    row-gap: 12px;
+}
+
+.aroma-plus {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+.water {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+.calc-clean {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+
+.water-steam {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+.power-off {
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+}
