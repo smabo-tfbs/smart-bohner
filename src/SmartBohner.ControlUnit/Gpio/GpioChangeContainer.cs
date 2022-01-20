@@ -12,7 +12,7 @@ namespace SmartBohner.ControlUnit.Extensions
     /// </summary>
     public class GpioChangeContainer : IGpioChangeContainer
     {
-        private readonly int timeout = 6000;
+        private readonly int timeout = 10000;
 
         private readonly IMaintenanceMessagingService maintenanceMessagingService;
         private readonly ILogger<GpioChangeContainer> logger;
@@ -33,29 +33,25 @@ namespace SmartBohner.ControlUnit.Extensions
             }
 
             controller.RegisterCallbackForPinValueChangedEvent(pin, PinEventTypes.Rising, (x, y) => PinChanged(y.PinNumber, y.ChangeType, messageType));
-
-            //controller.RegisterCallbackForPinValueChangedEvent(pin, PinEventTypes.Rising, (x, y) => onChanged());
         }
 
         private void PinChanged(int pin, PinEventTypes changeType, MessageType messageType)
         {
-            switch (changeType)
+            if (changeType is PinEventTypes.Rising)
             {
-                case PinEventTypes.None:
-                    break;
-                case PinEventTypes.Rising:
-                    Rising(pin, PinEventType.Rising, messageType);
-                    break;
-                case PinEventTypes.Falling:
-                    break;
+                Rising(pin, PinEventType.Rising, messageType);
+            }
+            else
+            {
+                logger.LogInformation("Invalid changetype doing nothing");
             }
         }
 
         private void Rising(int pin, PinEventType pinEventType, MessageType messageType)
         {
-            if (pinChangedUpInfo.Find(x => x.Pin == pin) is { } foundPin )
+            if (pinChangedUpInfo.Find(x => x.Pin == pin) is { } foundPin)
             {
-                if (foundPin.HitCount >= 2)
+                if (foundPin.HitCount <= 4)
                 {
                     logger.LogInformation($"Pin {foundPin.Pin}: HitCount is {foundPin.HitCount}. Publish message");
                     maintenanceMessagingService.Publish(messageType, pinEventType);
@@ -65,8 +61,9 @@ namespace SmartBohner.ControlUnit.Extensions
                     logger.LogInformation($"Pin {foundPin.Pin}: HitCount is {foundPin.HitCount}. Reseting timer");
                     foundPin.Timer.Stop();
                     foundPin.Timer.Start();
-                    foundPin.HitCount++;
                 }
+
+                foundPin.HitCount++;
             }
             else
             {
@@ -83,7 +80,7 @@ namespace SmartBohner.ControlUnit.Extensions
                 {
                     Pin = pin,
                     HitCount = 1,
-                    Timer =  timer
+                    Timer = timer
                 });
             }
         }
