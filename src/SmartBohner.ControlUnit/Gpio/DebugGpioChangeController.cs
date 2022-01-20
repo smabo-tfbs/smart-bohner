@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using SmartBohner.ControlUnit.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace SmartBohner.ControlUnit.Gpio
             this.logger = logger;
         }
 
-        public void Add(int pin, Action onChanged)
+        public void Add(int pin, MessageType eventType)
         {
             logger.LogInformation($"{pin} registered for change-tracking");
         }
