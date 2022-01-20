@@ -18,7 +18,7 @@ namespace SmartBohner.Web.Server.Controllers
         [HttpGet("notify")]
         public async Task TestNotify()
         {
-            await maintenanceMessagingService.Publish(MessageType.NoWater);
+            await maintenanceMessagingService.Publish(MessageType.NoWater, PinEventType.Rising);
         }
     }
 }

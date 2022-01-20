@@ -32,19 +32,19 @@ namespace SmartBohner.ControlUnit.Extensions
                 controller.OpenPin(pin);
             }
 
-            controller.RegisterCallbackForPinValueChangedEvent(pin, PinEventTypes.Rising, (x, y) => RegisterPinChanged(y.PinNumber, y.ChangeType, messageType));
+            controller.RegisterCallbackForPinValueChangedEvent(pin, PinEventTypes.Rising, (x, y) => PinChanged(y.PinNumber, y.ChangeType, messageType));
 
             //controller.RegisterCallbackForPinValueChangedEvent(pin, PinEventTypes.Rising, (x, y) => onChanged());
         }
 
-        private void RegisterPinChanged(int pin, PinEventTypes changeType, MessageType messageType)
+        private void PinChanged(int pin, PinEventTypes changeType, MessageType messageType)
         {
             switch (changeType)
             {
                 case PinEventTypes.None:
                     break;
                 case PinEventTypes.Rising:
-                    Rising(pin, PinEventType.Raising, messageType);
+                    Rising(pin, PinEventType.Rising, messageType);
                     break;
                 case PinEventTypes.Falling:
                     break;

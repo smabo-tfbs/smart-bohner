@@ -30,9 +30,9 @@ namespace SmartBohner.ControlUnit.Tests
             service.Callbacks[MessageType.Clean].Add(x => throw new InvalidOperationException());
             service.Callbacks[MessageType.CalcClean].Add(x => throw new InvalidOperationException());
 
-            service.Callbacks[MessageType.Alarm].Add(async x => called = x == PinEventType.Raising);
+            service.Callbacks[MessageType.Alarm].Add(async x => called = x == PinEventType.Rising);
 
-            Assert.That(() => service.Publish(MessageType.Alarm, PinEventType.Raising), Throws.Nothing);
+            Assert.That(() => service.Publish(MessageType.Alarm, PinEventType.Rising), Throws.Nothing);
         }
 
         [Test]

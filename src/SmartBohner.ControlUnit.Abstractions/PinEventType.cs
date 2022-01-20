@@ -3,6 +3,6 @@
     public enum PinEventType
     {
         Falling,
-        Raising
+        Rising
     }
 }
