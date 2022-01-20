@@ -12,7 +12,7 @@ namespace SmartBohner.ControlUnit.Extensions
     /// </summary>
     public class GpioChangeContainer : IGpioChangeContainer
     {
-        private readonly int timeout = TimeSpan.FromSeconds(6).Milliseconds;
+        private readonly int timeout = 6000;
 
         private readonly IMaintenanceMessagingService maintenanceMessagingService;
         private readonly ILogger<GpioChangeContainer> logger;
