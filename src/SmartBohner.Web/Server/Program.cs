@@ -64,6 +64,15 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseCors(c =>
+{
+    // TODO: Configure cors for requirements (allows everything at the moment)
+    c.AllowAnyHeader();
+    c.AllowAnyMethod();
+    c.SetIsOriginAllowed(origin => true);
+    c.AllowCredentials();
+});
+
 app.UseOpenApi();
 app.UseSwaggerUi3();
 app.UseSerilogRequestLogging();
