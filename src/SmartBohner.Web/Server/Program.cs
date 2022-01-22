@@ -73,4 +73,8 @@ app.MapControllers();
 app.MapFallbackToFile("index.html");
 
 app.InitControlUnit();
+
+// Initialize singleton service to subscribe all warnings
+app.Services.GetService<IWarningHubNotifier>();
+
 app.Run();
