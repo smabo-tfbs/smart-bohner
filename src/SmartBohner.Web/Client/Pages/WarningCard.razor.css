@@ -4,6 +4,14 @@
     background-color: #364244;
     border-radius: 20px;
     animation-duration: 0.2s;
+    margin-top: 120px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #CF6800;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .warning-card-in {
