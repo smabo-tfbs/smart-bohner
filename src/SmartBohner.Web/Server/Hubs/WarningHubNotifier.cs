@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using SmartBohner.ControlUnit.Abstractions;
-using SmartBohner.Web.Shared;
+using SmartBohner.Web.Shared.SignalR;
 
 namespace SmartBohner.Web.Server.Hubs
 {
@@ -11,10 +11,10 @@ namespace SmartBohner.Web.Server.Hubs
 
     public class WarningHubNotifier : IWarningHubNotifier
     {
-        private readonly IHubContext _context;
+        private readonly IHubContext<WarningHub> _context;
         private readonly IMaintenanceMessagingService _messagingService;
 
-        public WarningHubNotifier(IHubContext context, IMaintenanceMessagingService messagingService)
+        public WarningHubNotifier(IHubContext<WarningHub> context, IMaintenanceMessagingService messagingService)
         {
             _context = context;
             _messagingService = messagingService;
@@ -24,7 +24,11 @@ namespace SmartBohner.Web.Server.Hubs
 
         public async Task Notify(PinEventType pinEventType, MessageType messageType)
         {
-            await _context.Clients.All.SendAsync(SignalRClient.ReceiveWarnings, pinEventType, messageType);
+            await _context.Clients.All.SendAsync(SignalRClient.ReceiveWarnings, new WarningResult
+            {
+                PinEventType = pinEventType,
+                MessageType = messageType
+            });
         }
 
         public void Dispose() => Unsubscribe();

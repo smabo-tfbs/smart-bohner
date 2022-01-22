@@ -79,6 +79,10 @@ app.UseSerilogRequestLogging();
 
 app.MapRazorPages();
 app.MapControllers();
+
+// TODO: Map warning hub (waiting for deployment branch)
+app.MapHub<WarningHub>("/warnings");
+
 app.MapFallbackToFile("index.html");
 
 app.InitControlUnit();

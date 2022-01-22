@@ -1,4 +1,4 @@
-﻿namespace SmartBohner.Web.Shared
+﻿namespace SmartBohner.Web.Shared.SignalR
 {
     public class SignalRClient
     {

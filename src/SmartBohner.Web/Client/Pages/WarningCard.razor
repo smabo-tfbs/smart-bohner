@@ -1,4 +1,7 @@
-﻿<div class=@_currentCardState>
+﻿@implements IDisposable
+
+<div class=@_currentCardState>
+    <p class="text-danger">@testResult</p>
 </div>
 
 @code {
@@ -6,4 +9,42 @@
     private const string SLIDE_OUT = "warning-card warning-card-out";
 
     private string _currentCardState = SLIDE_IN;
+
+    private string testResult = "";
+
+    protected override void OnInitialized()
+    {
+        WarningHandler.Listen(OnWarningReceived);
+    }
+
+    private void OnWarningReceived(WarningResult result)
+    {
+        switch (result.MessageType)
+        {
+            case MessageType.NoWater:
+                testResult = nameof(MessageType.NoWater);
+                break;
+            case MessageType.WasteFull:
+                testResult = nameof(MessageType.WasteFull);
+                break;
+            case MessageType.NoBeans:
+                testResult = nameof(MessageType.NoBeans);
+                break;
+            case MessageType.Alarm:
+                testResult = nameof(MessageType.Alarm);
+                break;
+            case MessageType.Clean:
+                testResult = nameof(MessageType.Clean);
+                break;
+            case MessageType.CalcClean:
+                testResult = nameof(MessageType.CalcClean);
+                break;
+            default:
+                break;
+        }
+
+        StateHasChanged();
+    }
+
+    public void Dispose() => WarningHandler.Stop();
 }
