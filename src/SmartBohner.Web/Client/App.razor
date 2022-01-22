@@ -13,6 +13,7 @@
     // TODO: Implement connection retry if failed
     protected override async Task OnInitializedAsync()
     {
+        Nav.NavigateTo("home");
         await WarningHandler.Start();
     }
 }
