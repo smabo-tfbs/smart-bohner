@@ -7,6 +7,13 @@ using SmartBohner.Web.Server.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure kestrel to listen on port 5001 (Raspberry) and 5002 (Desktop, Mobile, ...)
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenLocalhost(5001);
+    options.ListenAnyIP(5002);
+});
+
 // Add services to the container.
 builder.Services.RegisterControlUnit();
 builder.Services.AddSingleton<IWarningHubNotifier, WarningHubNotifier>();
@@ -59,31 +66,71 @@ else
 
 app.UseHttpsRedirection();
 
-app.UseBlazorFrameworkFiles();
-app.UseStaticFiles();
-
-app.UseRouting();
-
-app.UseCors(c =>
-{
-    // TODO: Configure cors for requirements (allows everything at the moment)
-    c.AllowAnyHeader();
-    c.AllowAnyMethod();
-    c.SetIsOriginAllowed(origin => true);
-    c.AllowCredentials();
-});
-
 app.UseOpenApi();
 app.UseSwaggerUi3();
 app.UseSerilogRequestLogging();
 
-app.MapRazorPages();
-app.MapControllers();
+app.UseWhen(context => context.Request.Host.Port == 5001, config =>
+{
+    config.Use((context, next) =>
+    {
+        context.Request.Path = "/raspy" + context.Request.Path;
+        return next();
+    });
 
-// TODO: Map warning hub (waiting for deployment branch)
-app.MapHub<WarningHub>("/warnings");
+    config.UseStaticFiles();
+    config.UseBlazorFrameworkFiles("/raspy");
+    config.UseStaticFiles("/raspy");
+    config.UseRouting();
 
-app.MapFallbackToFile("index.html");
+    // TODO: Change cors to given requirements (everything allowed at the moment)
+    config.UseCors(c =>
+    {
+        c.AllowAnyHeader();
+        c.AllowAnyMethod();
+        c.SetIsOriginAllowed(origin => true);
+        c.AllowCredentials();
+    });
+    
+    config.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+        endpoints.MapHub<WarningHub>("/warnings");
+        endpoints.MapFallbackToFile("/raspy/{*path:nonfile}",
+            "raspy/index.html");
+    });
+});
+
+app.UseWhen(context => context.Request.Host.Port == 5002, config =>
+{
+    config.Use((context, next) =>
+    {
+        context.Request.Path = "/mobile" + context.Request.Path;
+        return next();
+    });
+
+    config.UseStaticFiles();
+    config.UseBlazorFrameworkFiles("/mobile");
+    config.UseStaticFiles("/mobile");
+    config.UseRouting();
+
+    // TODO: Change cors to given requirements (everything allowed at the moment)
+    config.UseCors(c =>
+    {
+        c.AllowAnyHeader();
+        c.AllowAnyMethod();
+        c.SetIsOriginAllowed(origin => true);
+        c.AllowCredentials();
+    });
+
+    config.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+        endpoints.MapHub<WarningHub>("/warnings");
+        endpoints.MapFallbackToFile("/mobile/{*path:nonfile}",
+            "mobile/index.html");
+    });
+});
 
 app.InitControlUnit();
 
