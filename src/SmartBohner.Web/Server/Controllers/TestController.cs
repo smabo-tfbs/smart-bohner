@@ -10,7 +10,7 @@ namespace SmartBohner.Web.Server.Controllers
     {
         private readonly IPinService debugPinService;
 
-        public TestController(PinServiceFactory debugPinService)
+        public TestController(IPinServiceFactory debugPinService)
         {
             this.debugPinService = debugPinService.Build();
         }
