@@ -1,4 +1,4 @@
-﻿using SmartBohner.ControlUnit.Abstractions;
+﻿using SmartBohner.Gpio.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Device.Gpio;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartBohner.ControlUnit.Gpio
+namespace SmartBohner.Gpio
 {
     internal class PinService : IPinService
     {

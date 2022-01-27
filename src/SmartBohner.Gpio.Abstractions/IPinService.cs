@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartBohner.ControlUnit.Abstractions
+namespace SmartBohner.Gpio.Abstractions
 {
     /// <summary>
     /// Provide functionality to set a gpio port to a specific value

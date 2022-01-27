@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartBohner.ControlUnit.Abstractions
+namespace SmartBohner.Gpio.Abstractions
 {
     public interface IPinSwitcher
     {

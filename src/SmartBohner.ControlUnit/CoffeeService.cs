@@ -1,4 +1,5 @@
 ﻿using SmartBohner.ControlUnit.Abstractions;
+using SmartBohner.Gpio.Abstractions;
 
 namespace SmartBohner.ControlUnit
 {

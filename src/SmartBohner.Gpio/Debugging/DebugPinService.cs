@@ -1,12 +1,12 @@
-﻿using SmartBohner.ControlUnit.Abstractions;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SmartBohner.Gpio.Abstractions;
 
-namespace SmartBohner.ControlUnit.Gpio.Debugging
+namespace SmartBohner.Gpio.Debugging
 {
     internal class DebugPinService : IPinService
     {
