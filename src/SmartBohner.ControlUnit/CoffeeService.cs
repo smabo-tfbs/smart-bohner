@@ -1,13 +1,26 @@
-﻿using SmartBohner.ControlUnit.Abstractions;
+﻿using Microsoft.Extensions.Logging;
+using SmartBohner.ControlUnit.Abstractions;
+using SmartBohner.ControlUnit.Gpio;
 
 namespace SmartBohner.ControlUnit
 {
     internal class CoffeeService : ICoffeeService
     {
-        /// <inheritdoc/>
-        public Task Coffee()
+        private readonly PinServiceFactory pinServiceFactory;
+        private readonly ILogger<CoffeeService> logger;
+
+        public CoffeeService(PinServiceFactory pinServiceFactory, ILogger<CoffeeService> logger)
         {
-            return Task.CompletedTask;
+            this.pinServiceFactory = pinServiceFactory;
+            this.logger = logger;
+        }
+
+        /// <inheritdoc/>
+        public async Task Coffee()
+        {
+            logger.LogInformation("Start making coffee");
+            var pin = pinServiceFactory.Build();
+           
         }
 
         /// <inheritdoc/>
