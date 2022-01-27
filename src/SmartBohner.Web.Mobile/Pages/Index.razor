@@ -39,7 +39,7 @@
 @code {
     public async Task MakeCoffee()
     {
-        var data = await http.GetFromJsonAsync<TReturn>("api/Coffee/Coffee");
+        var data = await http.GetAsync("api/Coffee/Coffee");
     
     }
     public async Task MakeEspresso()
