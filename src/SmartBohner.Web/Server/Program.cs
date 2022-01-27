@@ -1,17 +1,11 @@
 using Microsoft.AspNetCore.ResponseCompression;
 using Serilog;
 using Serilog.Formatting.Json;
+using SmartBohner.ControlUnit.AspNet;
 using SmartBohner.ControlUnit.Extensions;
 using SmartBohner.Web.Server.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Configure kestrel to listen on port 5001 (Raspberry) and 5002 (Desktop, Mobile, ...)
-//builder.WebHost.ConfigureKestrel(options =>
-//{
-//    options.ListenLocalhost(5001);
-//    options.ListenAnyIP(5002);
-//});
 
 // Add services to the container.
 builder.Services.RegisterControlUnit();
@@ -91,17 +85,24 @@ app.MapWhen(context => context.Request.Path.StartsWithSegments("/mobile"), confi
     });
 });
 
-//app.UseRouting();
+app.UseRouting();
 
 app.UseOpenApi();
 app.UseSwaggerUi3();
 app.UseSerilogRequestLogging();
 
-//app.MapRazorPages();
+app.UseCors(c =>
+{
+    c.AllowAnyHeader();
+    c.AllowAnyMethod();
+    c.SetIsOriginAllowed(origin => true);
+    c.AllowCredentials();
+});
+
 app.MapControllers();
 app.MapHub<WarningHub>("/warnings");
 
-//app.InitControlUnit();
+app.InitControlUnit();
 
 // Initialize singleton service to subscribe all warnings
 app.Services.GetService<IWarningHubNotifier>();
