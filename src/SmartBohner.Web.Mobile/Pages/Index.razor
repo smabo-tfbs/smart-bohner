@@ -9,9 +9,9 @@
     </style>
     @if (visible == true)
 {
-    <Banner messageText=>
+    <Banner messageText=@messageText OnValidSubmitCallBack=@OnValidSubmitCallBack />
               
-    </Banner>     
+        
 }
 <PageTitle>Index</PageTitle>
 
@@ -37,11 +37,13 @@
     //    
     //}
     private bool visible = true;
-    public async Task<bool> Dismiss()
+
+    public string messageText = "Hier gibts nix zu sehen.";
+    public Task OnValidSubmitCallBack()
     {
-      return visible == false;
-    
+        visible = false;
+        StateHasChanged();
+        return Task.FromResult(visible);
     }
-    massa
 
 }
