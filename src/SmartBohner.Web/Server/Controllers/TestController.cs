@@ -13,9 +13,9 @@ namespace SmartBohner.Web.Server.Controllers
 
         private readonly IMaintenanceMessagingService _messagingService;
 
-        public TestController(PinServiceFactory debugPinService, IMaintenanceMessagingService messagingService)
+        public TestController(IPinServiceFactory debugPinService, IMaintenanceMessagingService messagingService)
         {
-            //this.debugPinService = debugPinService.Build();
+            this.debugPinService = debugPinService.Build();
             _messagingService = messagingService;
         }
 
