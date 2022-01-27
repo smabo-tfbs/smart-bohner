@@ -63,6 +63,11 @@ namespace SmartBohner.ControlUnit.Gpio
             {
                 try
                 {
+                    if (!controller.IsPinOpen(pin.Number))
+                    {
+                        controller.OpenPin(pin.Number);
+                    }
+
                     controller.SetPinMode(pin.Number, pin.Mode);
                 }
                 catch (Exception ex)
