@@ -5,6 +5,7 @@
 		<Nullable>disable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<StaticWebAssetBasePath>raspy</StaticWebAssetBasePath>
+		<UserSecretsId>42d89996-4d56-4ced-985b-ea0c0a660338</UserSecretsId>
 	</PropertyGroup>
 
   <ItemGroup>

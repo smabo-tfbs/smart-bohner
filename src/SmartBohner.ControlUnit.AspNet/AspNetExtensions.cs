@@ -23,7 +23,7 @@ namespace SmartBohner.ControlUnit.AspNet
 
         private static void InitButtonsInternal(this WebApplication app)
         {
-            var factory =  app.Services.GetService<PinServiceFactory>();
+            var factory =  app.Services.GetService<IPinServiceFactory>();
 
             if (factory is null)
             {
@@ -41,7 +41,7 @@ namespace SmartBohner.ControlUnit.AspNet
 
         private static void InitDiodsInternal(this WebApplication app)
         {
-            var factory = app.Services.GetService<PinServiceFactory>();
+            var factory = app.Services.GetService<IPinServiceFactory>();
 
             if (factory is null)
             {
