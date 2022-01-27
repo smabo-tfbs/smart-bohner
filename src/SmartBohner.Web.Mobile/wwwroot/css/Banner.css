@@ -11,3 +11,10 @@
     border-radius: 25px;
     animation: our-fade-in-animation 12s infinite ease-in-out;
 }
+.sidebar {
+    background-color: saddlebrown;
+}
+.backgoung-class {
+    background-image: url(../css/icons_coffe/Wood.jpg)
+}
+}
