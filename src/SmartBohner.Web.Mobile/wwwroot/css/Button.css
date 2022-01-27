@@ -15,10 +15,10 @@
     color: #9B4E00;
     width: 200px;
     height: 200px;
-    border: none;
-    float: inherit;
     text-align: center;
     font-size: 32px;
+    float: inline-start;
+    border: none;
     background-image: url('icons_coffe/espresso.svg');
     border-radius: 15%;
 }
@@ -29,18 +29,22 @@
     width: 200px;
     height: 200px;
     text-align: center;
-    float: inline-end;
     font-size: 32px;
+    float: inline-start;
     border: none;
     background-image: url('icons_coffe/espresso_lungo.svg');
     border-radius: 15%;
 }
 .button-float-right {
     color: white;
-    background-color: mediumvioletred;
+    font-size: 10px;
+    background-color: transparent;
     float: right;
-    border-radius: 25px
-}
+    border-radius: 5px;
+    /*position:absolute;*/
+    top:0px;
+    right:0px;
+                   
 .button-left:hover {
     background-color: #424D4F;
 }
