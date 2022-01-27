@@ -1,49 +1,64 @@
 ﻿@page "/"
-
-
-
+@using System.Text.Json
+@inject HttpClient http
 <style>
-    body{background-color:#232323; color:#9B4E00; font-family:Pacifico} 
-    h1 {text-align:center;}
-    header{color:red;}
-    </style>
+    body {
+        background-image: url(../css/icons_coffe/Wood.jpg);
+        background-color: #232323;
+        color: ivory;
+        font-family: Pacifico
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    header {
+        color: red;
+    }
+</style>
     @if (visible == true)
 {
-    <Banner messageText=@messageText OnValidSubmitCallBack=@OnValidSubmitCallBack />
-              
-        
+  <div class="banner-info">
+     @messageText
+    <button type="button" class="button-float-right" onclick="@Dismiss">x</button>
+</div>
 }
+
+
 <PageTitle>Index</PageTitle>
 
 <h1>Willkommen beim Smartbohener</h1>
 
-<button class="button-left" onclick="MakeCoffee">Kaffee</button>
-<button class="button-center" onclick="MakeEspresso" >Espresso</button>
-<button class="button-right" onclick="MakeEspressoLungo" >Espresso Lungo</button>
+<button class="button-left" onclick="@MakeCoffee">Kaffee</button>
+<button class="button-center" onclick="@MakeEspresso">Espresso</button>
+<button class="button-right" onclick="@MakeEspressoLungo">Espresso Lungo</button>
 
 
 
 @code {
-    //public async Task MakeCoffee()
-    //{
-    //    
-    //}
-    //public async Task MakeEspresso()
-    //{
-    //    
-    //}
-    //public async Task MakeEspressoLungo()
-    //{
-    //    
-    //}
+    public async Task MakeCoffee()
+    {
+        var data = await http.GetFromJsonAsync<TReturn>("api/Coffee/Coffee");
+    
+    }
+    public async Task MakeEspresso()
+    {
+    var data = await http.GetFromJsonAsync<Task>("api/Coffee/Espresso");
+    }
+    public async Task MakeEspressoLungo()
+    {
+    var data = await http.GetFromJsonAsync<Task>("api/Coffee/Lungo");
+    }
     private bool visible = true;
 
     public string messageText = "Hier gibts nix zu sehen.";
-    public Task OnValidSubmitCallBack()
+    public async Task Dismiss()
     {
+
         visible = false;
         StateHasChanged();
-        return Task.FromResult(visible);
+        await Task.FromResult(visible);
     }
 
 }

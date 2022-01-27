@@ -9,6 +9,8 @@
     border: none;
     background-image: url('icons_coffe/coffee.svg');
     border-radius: 15%;
+    position: relative;
+    top:30px; 
 }
 .button-center {
     background-color: #364244;
@@ -20,7 +22,10 @@
     float: inline-start;
     border: none;
     background-image: url('icons_coffe/espresso.svg');
+    image-resolution: initial;
     border-radius: 15%;
+    position: relative;
+    top: 30px;
 }
 
 .button-right {
@@ -34,6 +39,8 @@
     border: none;
     background-image: url('icons_coffe/espresso_lungo.svg');
     border-radius: 15%;
+    position: relative;
+    top: 30px;
 }
 .button-float-right {
     color: white;
@@ -42,12 +49,13 @@
     float: right;
     border-radius: 5px;
     /*position:absolute;*/
-    top:0px;
-    right:0px;
-                   
+    top: 0px;
+    right: 0px;
+}
 .button-left:hover {
     background-color: #424D4F;
 }
+
 .button-center:hover {
     background-color: #424D4F;
 }
