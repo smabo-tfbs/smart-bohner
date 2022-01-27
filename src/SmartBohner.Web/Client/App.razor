@@ -1,12 +1,19 @@
-﻿@inject NavigationManager NavigationManager
-
-<Router AppAssembly="@typeof(App).Assembly">
+﻿<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
     </Found>
     <NotFound>
         @{
-            NavigationManager.NavigateTo("home");
+            Nav.NavigateTo("home");
         }
     </NotFound>
 </Router>
+
+@code {
+    // TODO: Implement connection retry if failed
+    protected override async Task OnInitializedAsync()
+    {
+        Nav.NavigateTo("home");
+        await WarningHandler.Start();
+    }
+}

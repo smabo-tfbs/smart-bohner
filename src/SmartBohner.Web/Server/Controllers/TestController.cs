@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmartBohner.ControlUnit.Abstractions;
 using SmartBohner.ControlUnit.Gpio;
+using SmartBohner.Web.Server.Hubs;
 
 namespace SmartBohner.Web.Server.Controllers
 {
@@ -10,9 +11,18 @@ namespace SmartBohner.Web.Server.Controllers
     {
         private readonly IPinService debugPinService;
 
-        public TestController(PinServiceFactory debugPinService)
+        private readonly IMaintenanceMessagingService _messagingService;
+
+        public TestController(IPinServiceFactory debugPinService, IMaintenanceMessagingService messagingService)
         {
             this.debugPinService = debugPinService.Build();
+            _messagingService = messagingService;
+        }
+
+        [HttpGet("SignalR")]
+        public async Task TestSignalR(MessageType messageType)
+        {
+            await _messagingService.Publish(messageType, PinEventType.Rising);
         }
 
         [HttpGet]

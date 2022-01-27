@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartBohner.ControlUnit.Gpio
+namespace SmartBohner.ControlUnit.Gpio.Debugging
 {
     internal class DebugGpioChangeController : IGpioChangeContainer
     {

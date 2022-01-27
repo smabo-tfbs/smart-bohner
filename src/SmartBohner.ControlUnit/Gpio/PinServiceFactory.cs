@@ -1,15 +1,13 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using SmartBohner.ControlUnit.Abstractions;
 using System.Device.Gpio;
-using System.Security.Cryptography.X509Certificates;
 
 namespace SmartBohner.ControlUnit.Gpio
 {
     /// <summary>
     /// Creates a new instance of the <see cref="IPinService"/>
     /// </summary>
-    public class PinServiceFactory
+    internal class PinServiceFactory : IPinServiceFactory
     {
         private readonly ILogger<PinServiceFactory> logger;
         private readonly List<Pin> pins = new List<Pin>();
@@ -23,29 +21,22 @@ namespace SmartBohner.ControlUnit.Gpio
             this.logger = logger;
         }
 
-        /// <summary>
-        /// Specifies that a pin is opened for output-signals
-        /// </summary>
-        /// <param name="pin"></param>
-        /// <returns></returns>
-        public PinServiceFactory WithPinAsOutput(int pin)
+        /// <inheritdoc/>
+        public IPinServiceFactory WithPinAsOutput(int pin)
         {
             RegisterInternal(pin, PinMode.Output);
             return this;
         }
 
-        /// <summary>
-        /// Specified that a pin is opened for input-signals
-        /// </summary>
-        /// <param name="pin">The pin to set</param>
-        /// <returns></returns>
-        public PinServiceFactory WithPinAsInput(int pin)
+        /// <inheritdoc>/>
+        public IPinServiceFactory WithPinAsInput(int pin)
         {
             RegisterInternal(pin, PinMode.Input);
             return this;
         }
 
-        public PinServiceFactory WithPinAsInput(int pin, Action onChanged)
+        /// <inheritdoc/>
+        public IPinServiceFactory WithPinAsInput(int pin, Action onChanged)
         {
             RegisterInternal(pin, PinMode.Input, onChanged);
             return this;
@@ -62,10 +53,7 @@ namespace SmartBohner.ControlUnit.Gpio
             logger.LogInformation($"Added {pin} set to {mode}");
         }
 
-        /// <summary>
-        /// Creates the <see cref="IPinService"/>-object
-        /// </summary>
-        /// <returns></returns>
+        /// <inheritdoc/>
         public IPinService Build()
         {
             var controller = new GpioController();
@@ -75,6 +63,11 @@ namespace SmartBohner.ControlUnit.Gpio
             {
                 try
                 {
+                    if (!controller.IsPinOpen(pin.Number))
+                    {
+                        controller.OpenPin(pin.Number);
+                    }
+
                     controller.SetPinMode(pin.Number, pin.Mode);
                 }
                 catch (Exception ex)
@@ -88,6 +81,6 @@ namespace SmartBohner.ControlUnit.Gpio
                 : new PinService(controller);
         }
 
-        private record Pin(int Number, PinMode Mode, Action? onChanged = null);
+        private record Pin(int Number, PinMode Mode, Action? OnChanged = null);
     }
 }
