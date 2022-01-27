@@ -1,7 +1,13 @@
-﻿<div class="col-md-12 banner">
-    Willkommen zum Smartbohner
+﻿<div class="banner">
+    <button @onclick="@Dismiss" class="float-right">x</button>
+   @messageText
 </div>
 
 @code {
-    
+    private void Dismiss()
+    {
+        
+    }
+    [Parameter]
+    public string messageText { get; set; }
 }
