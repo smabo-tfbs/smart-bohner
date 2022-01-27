@@ -1,9 +1,51 @@
-﻿<div class=@_currentCardState>
+﻿@implements IDisposable
+
+<div class=@_currentCardState>
+    @_message
 </div>
 
 @code {
+    private const string DEFAULT = "warning-card";
     private const string SLIDE_IN = "warning-card warning-card-in";
     private const string SLIDE_OUT = "warning-card warning-card-out";
 
     private string _currentCardState = SLIDE_IN;
+    private string _message = "";
+
+    protected override void OnInitialized()
+    {
+        WarningHandler.Listen(OnWarningReceived);
+    }
+
+    private void OnWarningReceived(WarningResult result)
+    {
+        switch (result.MessageType)
+        {
+            case MessageType.NoWater:
+                _message = WarningResource[nameof(MessageType.NoWater)];
+                //_currentCardState = _currentCardState == SLIDE_IN ? SLIDE_OUT : SLIDE_IN;
+                break;
+            case MessageType.WasteFull:
+                _message = WarningResource[nameof(MessageType.WasteFull)];
+                break;
+            case MessageType.NoBeans:
+                _message = WarningResource[nameof(MessageType.NoBeans)];
+                break;
+            case MessageType.Alarm:
+                _message = WarningResource[nameof(MessageType.Alarm)];
+                break;
+            case MessageType.Clean:
+                _message = WarningResource[nameof(MessageType.Clean)];
+                break;
+            case MessageType.CalcClean:
+                _message = WarningResource[nameof(MessageType.CalcClean)];
+                break;
+            default:
+                break;
+        }
+
+        StateHasChanged();
+    }
+
+    public void Dispose() => WarningHandler.Stop();
 }

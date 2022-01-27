@@ -1,27 +1,24 @@
-using Namotion.Reflection;
+using Microsoft.AspNetCore.ResponseCompression;
 using Serilog;
 using Serilog.Formatting.Json;
 using SmartBohner.ControlUnit.AspNet;
 using SmartBohner.ControlUnit.Extensions;
+using SmartBohner.Web.Server.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure kestrel to listen on port 5001 (Raspberry) and 5002 (Desktop, Mobile, ...)
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenLocalhost(5001);
-    options.ListenAnyIP(5002);
-});
-
 // Add services to the container.
 builder.Services.RegisterControlUnit();
-
+builder.Services.AddSingleton<IWarningHubNotifier, WarningHubNotifier>();
 builder.Services.AddSwaggerDocument(c =>
 {
     c.Title = "Smart-Bohner API";
     c.Version = "v1";
     c.Description = "Communicate with smart coffee machine.";
 });
+
+builder.Services.AddSignalR()
+    .AddMessagePackProtocol();
 
 LoggerConfiguration configuration = new LoggerConfiguration();
 configuration
@@ -40,8 +37,14 @@ builder.WebHost.UseSerilog(configuration.CreateLogger());
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddResponseCompression(c =>
+{
+    // Configure default mime-types to compress octet-streams (SignalR)
+    c.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[] { "application/octet-stream" });
+});
 
 var app = builder.Build();
+app.UseResponseCompression();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -56,51 +59,52 @@ else
 
 app.UseHttpsRedirection();
 
+app.MapWhen(context => context.Request.Path.StartsWithSegments("/raspy"), config =>
+{
+    config.UseBlazorFrameworkFiles("/raspy");
+    config.UseStaticFiles();
+
+    config.UseRouting();
+    config.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+        endpoints.MapFallbackToFile("raspy/index.html");
+    });
+});
+
+app.MapWhen(context => context.Request.Path.StartsWithSegments("/mobile"), config =>
+{
+    config.UseBlazorFrameworkFiles("/mobile");
+    config.UseStaticFiles();
+
+    config.UseRouting();
+    config.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+        endpoints.MapFallbackToFile("mobile/index.html");
+    });
+});
+
+app.UseRouting();
+
 app.UseOpenApi();
 app.UseSwaggerUi3();
 app.UseSerilogRequestLogging();
 
-app.UseWhen(context => context.Request.Host.Port == 5001, config =>
+app.UseCors(c =>
 {
-    config.Use((context, next) =>
-    {
-        context.Request.Path = "/raspy" + context.Request.Path;
-        return next();
-    });
-
-    config.UseStaticFiles();
-    config.UseBlazorFrameworkFiles("/raspy");
-    config.UseStaticFiles("/raspy");
-    config.UseRouting();
-    
-    config.UseEndpoints(endpoints =>
-    {
-        endpoints.MapControllers();
-        endpoints.MapFallbackToFile("/raspy/{*path:nonfile}",
-            "raspy/index.html");
-    });
+    c.AllowAnyHeader();
+    c.AllowAnyMethod();
+    c.SetIsOriginAllowed(origin => true);
+    c.AllowCredentials();
 });
 
-app.UseWhen(context => context.Request.Host.Port == 5002, config =>
-{
-    config.Use((context, next) =>
-    {
-        context.Request.Path = "/mobile" + context.Request.Path;
-        return next();
-    });
-
-    config.UseStaticFiles();
-    config.UseBlazorFrameworkFiles("/mobile");
-    config.UseStaticFiles("/mobile");
-    config.UseRouting();
-
-    config.UseEndpoints(endpoints =>
-    {
-        endpoints.MapControllers();
-        endpoints.MapFallbackToFile("/mobile/{*path:nonfile}",
-            "mobile/index.html");
-    });
-});
+app.MapControllers();
+app.MapHub<WarningHub>("/warnings");
 
 app.InitControlUnit();
+
+// Initialize singleton service to subscribe all warnings
+app.Services.GetService<IWarningHubNotifier>();
+
 app.Run();
