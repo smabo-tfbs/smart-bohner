@@ -1,5 +1,5 @@
 ﻿@page "/"
-@*@inject CoffeeController coffeeController*@
+
 
 
 <style>
@@ -9,10 +9,9 @@
     </style>
     @if (visible == true)
 {
-    <div class="banner-info">
-                SAG ICH JA
-         <button @onclick="@Dismiss" class="float-right btn">OKI</button>
-    </div>     
+    <Banner messageText=>
+              
+    </Banner>     
 }
 <PageTitle>Index</PageTitle>
 
@@ -27,21 +26,22 @@
 @code {
     //public async Task MakeCoffee()
     //{
-    //    await coffeeController.Coffee();
+    //    
     //}
     //public async Task MakeEspresso()
     //{
-    //    await coffeeController.Espresso();
+    //    
     //}
     //public async Task MakeEspressoLungo()
     //{
-    //    await coffeeController.Lungo();
+    //    
     //}
-    private bool visible = false;
+    private bool visible = true;
     public async Task<bool> Dismiss()
     {
       return visible == false;
     
     }
+    massa
 
 }
