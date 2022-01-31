@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.AspNetCore.Builder;
-using System.Threading.Tasks;
-using SmartBohner.ControlUnit.Gpio;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using SmartBohner.ControlUnit.Abstractions;
-using SmartBohner.ControlUnit.Extensions;
 using Microsoft.Extensions.Logging;
+using SmartBohner.Gpio.Abstractions;
 
 namespace SmartBohner.ControlUnit.AspNet
 {

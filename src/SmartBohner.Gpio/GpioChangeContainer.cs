@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
 using SmartBohner.ControlUnit.Abstractions;
-using SmartBohner.ControlUnit.Gpio;
+using SmartBohner.Gpio.Abstractions;
 using System.Device.Gpio;
 using System.Timers;
 using Timer = System.Timers.Timer;
 
-namespace SmartBohner.ControlUnit.Extensions
+namespace SmartBohner.Gpio
 {
     /// <summary>
     /// This class is a singleton holding all callbacks for pin-changings

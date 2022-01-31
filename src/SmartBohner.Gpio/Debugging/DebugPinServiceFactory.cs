@@ -1,13 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using SmartBohner.ControlUnit.Abstractions;
+using SmartBohner.Gpio.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartBohner.ControlUnit.Gpio.Debugging
+namespace SmartBohner.Gpio.Debugging
 {
     internal class DebugPinServiceFactory : IPinServiceFactory
     {

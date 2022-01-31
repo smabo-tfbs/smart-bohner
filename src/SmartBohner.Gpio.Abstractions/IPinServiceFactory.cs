@@ -1,4 +1,4 @@
-﻿namespace SmartBohner.ControlUnit.Abstractions
+﻿namespace SmartBohner.Gpio.Abstractions
 {
     public interface IPinServiceFactory
     {

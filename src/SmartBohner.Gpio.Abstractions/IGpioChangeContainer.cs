@@ -1,6 +1,6 @@
 ﻿using SmartBohner.ControlUnit.Abstractions;
 
-namespace SmartBohner.ControlUnit.Gpio
+namespace SmartBohner.Gpio.Abstractions
 {
     public interface IGpioChangeContainer : IDisposable
     {

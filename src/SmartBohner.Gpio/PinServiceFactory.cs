@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
-using SmartBohner.ControlUnit.Abstractions;
+using SmartBohner.Gpio.Abstractions;
 using System.Device.Gpio;
 
-namespace SmartBohner.ControlUnit.Gpio
+namespace SmartBohner.Gpio
 {
     /// <summary>
     /// Creates a new instance of the <see cref="IPinService"/>
