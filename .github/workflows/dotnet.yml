@@ -26,6 +26,9 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+    - name: Test
+      run: dotnet test $GITHUB_WORKSPACE/src/smabo.sln
+
     - name: Publish
       run: dotnet publish $GITHUB_WORKSPACE/src/SmartBohner.Web/Server/ -c Release -r linux-arm
 
