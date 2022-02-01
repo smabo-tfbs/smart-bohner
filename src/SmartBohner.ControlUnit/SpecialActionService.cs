@@ -10,10 +10,10 @@ namespace SmartBohner.ControlUnit
 
         public SpecialActionService(
             IPinSwitcher pinSwitcher, 
-            IPinService pinService)
+            IPinServiceFactory pinServiceFactory)
         {
             this.pinSwitcher = pinSwitcher;
-            this.pinService = pinService;
+            this.pinService = pinServiceFactory.Build();
         }
 
         public Task ExecuteCalcClean()

@@ -9,9 +9,9 @@ namespace SmartBohner.ControlUnit
         private readonly IPinService pinService;
         private readonly ILogger<MaintenanceService> logger;
 
-        public MaintenanceService(IPinService pinService, ILogger<MaintenanceService> logger)
+        public MaintenanceService(IPinServiceFactory pinServiceFactory, ILogger<MaintenanceService> logger)
         {
-            this.pinService = pinService;
+            this.pinService = pinServiceFactory.Build();
             this.logger = logger;
         }
 
