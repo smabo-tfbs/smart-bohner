@@ -1,4 +1,5 @@
-﻿using SmartBohner.ControlUnit.Abstractions;
+﻿using Microsoft.Extensions.Logging;
+using SmartBohner.ControlUnit.Abstractions;
 using SmartBohner.Gpio.Abstractions;
 
 namespace SmartBohner.ControlUnit
@@ -6,10 +7,12 @@ namespace SmartBohner.ControlUnit
     internal class MaintenanceService : IMaintenanceService
     {
         private readonly IPinService pinService;
+        private readonly ILogger<MaintenanceService> logger;
 
-        public MaintenanceService(IPinService pinService)
+        public MaintenanceService(IPinService pinService, ILogger<MaintenanceService> logger)
         {
             this.pinService = pinService;
+            this.logger = logger;
         }
 
         /// <inheritdoc/>
@@ -54,7 +57,9 @@ namespace SmartBohner.ControlUnit
 
         private async Task<bool> PinIsHigh(int pin)
         {
-            return await pinService.GetPin(pin) == Pin.High;
+            var state = await pinService.GetPin(pin);
+            logger.LogInformation($"Pin {pin} is {state}");
+            return state == Pin.High;
         }
     }
 }
