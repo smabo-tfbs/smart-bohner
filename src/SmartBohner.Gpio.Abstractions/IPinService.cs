@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SmartBohner.Gpio.Abstractions
+﻿namespace SmartBohner.Gpio.Abstractions
 {
     /// <summary>
     /// Provide functionality to set a gpio port to a specific value
@@ -24,5 +18,11 @@ namespace SmartBohner.Gpio.Abstractions
         Task ClosePin(int pin);
 
         Task<string> GetPin(int pin);
+    }
+
+    public static class Pin
+    {
+        public const string High = "HIGH";
+        public const string Low = "LOW";
     }
 }

@@ -1,44 +1,45 @@
 ﻿using SmartBohner.ControlUnit.Abstractions;
+using SmartBohner.Gpio.Abstractions;
 
 namespace SmartBohner.ControlUnit
 {
     internal class MaintenanceService : IMaintenanceService
     {
+        private readonly IPinService pinService;
 
-        /// <inheritdoc/>
-        public async Task<bool> Alarm()
+        public MaintenanceService(IPinService pinService)
         {
-            return false;
+            this.pinService = pinService;
         }
 
         /// <inheritdoc/>
-        public Task ExecuteCalcClean()
+        public Task<bool> Alarm()
         {
-            return Task.CompletedTask;
+            return PinIsHigh(21);
         }
 
         /// <inheritdoc/>
-        public async Task<bool> NeedsCalcClean()
+        public Task<bool> NeedsCalcClean()
         {
-            return false;
+            return PinIsHigh(12);
         }
 
         /// <inheritdoc/>
-        public async Task<bool> NoBeans()
+        public Task<bool> NoBeans()
         {
-            return false;
+            return PinIsHigh(20);
         }
 
         /// <inheritdoc/>
-        public async Task<bool> NoWater()
+        public Task<bool> NoWater()
         {
-            return false;
+            return PinIsHigh(16);
         }
 
         /// <inheritdoc/>
-        public async Task<bool> WasteFull()
+        public Task<bool> WasteFull()
         {
-            return false;
+            return PinIsHigh(26);
         }
 
         /// <inheritdoc/>
@@ -49,6 +50,11 @@ namespace SmartBohner.ControlUnit
                 || await NoBeans()
                 || await NoWater()
                 || await WasteFull();
+        }
+
+        private async Task<bool> PinIsHigh(int pin)
+        {
+            return await pinService.GetPin(pin) == Pin.High;
         }
     }
 }

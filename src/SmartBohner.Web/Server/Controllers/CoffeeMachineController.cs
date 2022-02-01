@@ -58,7 +58,7 @@ namespace SmartBohner.Web.Server.Controllers
                 logger.LogWarning("Start coffee machine on users request");
             }
         }
-
+        
         /// <summary>
         /// Get coffee machine's status
         /// </summary>

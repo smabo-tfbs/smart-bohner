@@ -36,7 +36,7 @@ namespace SmartBohner.ControlUnit
         public async Task ToggleAromaPlus(bool newValue)
         {
             var pinStatus = await pinService.GetPin(7);
-            var needChange = pinStatus == "High" == newValue;
+            var needChange = pinStatus == Pin.High == newValue;
 
             if (needChange)
             {

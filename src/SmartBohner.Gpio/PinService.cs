@@ -1,10 +1,5 @@
 ﻿using SmartBohner.Gpio.Abstractions;
-using System;
-using System.Collections.Generic;
 using System.Device.Gpio;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartBohner.Gpio
 {
@@ -30,7 +25,19 @@ namespace SmartBohner.Gpio
         public async Task<string> GetPin(int pin)
         {
             var pinValue = controller.Read(pin);
-            return pinValue.ToString();
+
+            if (pinValue == PinValue.High)
+            {
+                return Pin.High;
+            }
+            else if (pinValue == PinValue.Low)
+            {
+                return Pin.Low;
+            }
+            else
+            {
+                throw new InvalidOperationException($"Not know PinValue: {pinValue.ToString} on pin {pin}");
+            }
         }
     }
 }

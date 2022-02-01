@@ -36,12 +36,6 @@
         Task<bool> NeedsCalcClean();
 
         /// <summary>
-        /// Executes a calc clean
-        /// </summary>
-        Task ExecuteCalcClean();
-
-
-        /// <summary>
         /// Get a value whether the coffee-machine has any warnings
         /// </summary>
         /// <returns>True: if there is any warning; otherwise false</returns>

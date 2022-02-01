@@ -3,7 +3,6 @@ using SmartBohner.ControlUnit.Abstractions;
 using SmartBohner.ControlUnit.Abstractions.Contracts;
 using SmartBohner.Gpio.Abstractions;
 using System.Device.Gpio;
-using System.Timers;
 using Timer = System.Timers.Timer;
 
 namespace SmartBohner.Gpio
