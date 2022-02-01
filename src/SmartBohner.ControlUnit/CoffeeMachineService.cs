@@ -7,11 +7,16 @@ namespace SmartBohner.ControlUnit
     internal class CoffeeMachineService : ICoffeeMachineService
     {
         private readonly IPinSwitcher pinSwitcher;
+        private readonly IPinService pinService;
         private readonly ILogger<CoffeeMachineService> logger;
 
-        public CoffeeMachineService(IPinSwitcher pinSwitcher, ILogger<CoffeeMachineService> logger)
+        public CoffeeMachineService(
+            IPinSwitcher pinSwitcher, 
+            IPinServiceFactory pinServiceFactory, 
+            ILogger<CoffeeMachineService> logger)
         {
             this.pinSwitcher = pinSwitcher;
+            this.pinService = pinServiceFactory.Build();
             this.logger = logger;
         }
 
