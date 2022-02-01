@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using SmartBohner.ControlUnit.Abstractions;
+using SmartBohner.ControlUnit.Abstractions.Contracts;
 using SmartBohner.Web.Shared.SignalR;
 
 namespace SmartBohner.Web.Server.Hubs
 {
     public interface IWarningHubNotifier : IDisposable
     {
-        Task Notify(PinEventType pinEventType, MessageType messageType);
+        Task Notify(PinEvent pinEvent);
     }
 
     public class WarningHubNotifier : IWarningHubNotifier
@@ -22,13 +23,14 @@ namespace SmartBohner.Web.Server.Hubs
             Subscribe();
         }
 
-        public async Task Notify(PinEventType pinEventType, MessageType messageType)
+        public async Task Notify(PinEvent pinEvent)
         {
             await _context.Clients.All.SendAsync(SignalRClient.ReceiveWarnings, new WarningResult
             {
-                PinEventType = pinEventType,
-                MessageType = messageType
+                PinEventType = pinEvent.EventType,
+                MessageType = pinEvent.MessageType
             });
+
         }
 
         public void Dispose() => Unsubscribe();
@@ -37,7 +39,7 @@ namespace SmartBohner.Web.Server.Hubs
         {
             foreach (var value in Enum.GetValues(typeof(MessageType)).Cast<MessageType>())
             {
-                _messagingService.Subscribe(async x => await Notify(x, value), value);
+                _messagingService.Subscribe(Notify, value);
             }
         }
 
@@ -45,7 +47,7 @@ namespace SmartBohner.Web.Server.Hubs
         {
             foreach (var value in Enum.GetValues(typeof(MessageType)).Cast<MessageType>())
             {
-                _messagingService.Unsubscribe(async x => await Notify(x, value));
+                _messagingService.Unsubscribe(Notify);
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿using SmartBohner.ControlUnit.Abstractions;
+﻿using SmartBohner.ControlUnit.Abstractions.Contracts;
 using SmartBohner.Web.Shared.SignalR;
 
 namespace SmartBohner.Web.Client.Infrastructure.Mock

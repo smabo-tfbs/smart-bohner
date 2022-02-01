@@ -1,28 +1,22 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using SmartBohner.Gpio.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartBohner.Gpio.Debugging
 {
     internal class DebugPinServiceFactory : IPinServiceFactory
     {
-        IServiceProvider serviceCollection;
         private readonly ILogger<DebugPinServiceFactory> logger;
+        private readonly ILogger<DebugPinService> debugPinLogger;
 
-        public DebugPinServiceFactory(IServiceProvider serviceCollection, ILogger<DebugPinServiceFactory> logger)
+        public DebugPinServiceFactory(ILogger<DebugPinServiceFactory> logger, ILogger<DebugPinService> debugPinLogger)
         {
-            this.serviceCollection = serviceCollection;
             this.logger = logger;
+            this.debugPinLogger = debugPinLogger;
         }
 
         public IPinService Build()
         {
-            return serviceCollection.GetService<IPinService>();
+            return new DebugPinService(debugPinLogger);
         }
 
         public IPinServiceFactory WithPinAsInput(int pin)

@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
-using SmartBohner.ControlUnit.Abstractions;
+using SmartBohner.ControlUnit.Abstractions.Contracts;
 using SmartBohner.Gpio.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartBohner.Gpio.Debugging
 {

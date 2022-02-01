@@ -1,4 +1,6 @@
-﻿namespace SmartBohner.ControlUnit.Abstractions
+﻿using SmartBohner.ControlUnit.Abstractions.Contracts;
+
+namespace SmartBohner.ControlUnit.Abstractions
 {
     public interface IMaintenanceMessagingService
     {
@@ -10,13 +12,13 @@
         /// </remarks>
         /// <param name="action"></param>
         /// <param name="messageType"></param>
-        void Subscribe(Func<PinEventType, Task> action, MessageType messageType);
+        void Subscribe(Func<PinEvent, Task> action, MessageType messageType);
 
         /// <summary>
         /// Unsubscribes the action from the messaging system
         /// </summary>
         /// <param name="action">The action to unsubscribe</param>
-        void Unsubscribe(Func<PinEventType, Task> action);
+        void Unsubscribe(Func<PinEvent, Task> action);
 
         /// <summary>
         /// Publishes a new Message with the provided <see cref="MessageType"/>

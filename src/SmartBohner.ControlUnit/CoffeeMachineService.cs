@@ -1,9 +1,20 @@
-﻿using SmartBohner.ControlUnit.Abstractions;
+﻿using Microsoft.Extensions.Logging;
+using SmartBohner.ControlUnit.Abstractions;
+using SmartBohner.Gpio.Abstractions;
 
 namespace SmartBohner.ControlUnit
 {
     internal class CoffeeMachineService : ICoffeeMachineService
-    { 
+    {
+        private readonly IPinSwitcher pinSwitcher;
+        private readonly ILogger<CoffeeMachineService> logger;
+
+        public CoffeeMachineService(IPinSwitcher pinSwitcher, ILogger<CoffeeMachineService> logger)
+        {
+            this.pinSwitcher = pinSwitcher;
+            this.logger = logger;
+        }
+
         /// <inheritdoc/>
         public async Task<bool> IsOn()
         {
@@ -11,15 +22,31 @@ namespace SmartBohner.ControlUnit
         }
 
         /// <inheritdoc/>
-        public Task Shutdown()
+        public async Task Shutdown()
         {
-            return Task.CompletedTask;
+            if (await IsOn())
+            {
+                logger.LogInformation("Shutdown started");
+                await pinSwitcher.Send2Port(4);
+            }
+            else
+            {
+                logger.LogInformation("Machine is already off. No shutdown needed");
+            }
         }
 
         /// <inheritdoc/>
-        public Task Start()
+        public async Task Start()
         {
-            return Task.CompletedTask;
+            if (!await IsOn())
+            {
+                logger.LogInformation("Starting machine");
+                await pinSwitcher.Send2Port(4);
+            }
+            else
+            {
+                logger.LogInformation("Machine is already on. No start needed");
+            }
         }
     }
 }
