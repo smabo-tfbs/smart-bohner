@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.SignalR.Client;
-using SmartBohner.Web.Shared.SignalR;
 
-namespace SmartBohner.Web.Client.Infrastructure
+namespace SmartBohner.Web.Shared.SignalR
 {
     public interface IWarningHubConnectionHandler : IAsyncDisposable
     {
