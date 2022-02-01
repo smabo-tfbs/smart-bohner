@@ -13,6 +13,7 @@ namespace SmartBohner.Gpio.Extensions
             serviceCollection.AddSingleton<IPinServiceFactory, DebugPinServiceFactory>();
             serviceCollection.AddSingleton<IGpioChangeContainer, DebugGpioChangeController>();
 #else
+            serviceCollection.AddTransient<IPinService, PinService>();
             serviceCollection.AddSingleton<IPinServiceFactory, PinServiceFactory>();
             serviceCollection.AddSingleton<IGpioChangeContainer, GpioChangeContainer>();
 #endif
