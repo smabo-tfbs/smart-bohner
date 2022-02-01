@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmartBohner.ControlUnit.Abstractions;
 using SmartBohner.ControlUnit.Abstractions.Contracts;
+using SmartBohner.Gpio.Abstractions;
 
 namespace SmartBohner.Web.Server.Controllers
 {
@@ -9,17 +10,25 @@ namespace SmartBohner.Web.Server.Controllers
     public class MessagingTestController : Controller
     {
         private readonly IMaintenanceMessagingService maintenanceMessagingService;
+        private readonly IPinSwitcher pinSwitcher;
 
-        public MessagingTestController(IMaintenanceMessagingService maintenanceMessagingService)
+        public MessagingTestController(IMaintenanceMessagingService maintenanceMessagingService, IPinSwitcher pinSwitcher)
         {
             this.maintenanceMessagingService = maintenanceMessagingService;
+            this.pinSwitcher = pinSwitcher;
         }
 
 
         [HttpGet("notify")]
-        public async Task TestNotify()
+        public async Task TestNotify(MessageType type, PinEventType eventType)
         {
-            await maintenanceMessagingService.Publish(MessageType.NoWater, PinEventType.Rising);
+            await maintenanceMessagingService.Publish(type, eventType);
+        }
+
+        [HttpGet("button")]
+        public async Task TestButton(int button, int intervall)
+        {
+            await pinSwitcher.Send2Port(button, intervall);
         }
     }
 }
