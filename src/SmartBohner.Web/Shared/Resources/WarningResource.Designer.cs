@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SmartBohner.Web.Client.Resources {
+namespace SmartBohner.Web.Shared.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace SmartBohner.Web.Client.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SmartBohner.Web.Client.Resources.WarningResource", typeof(WarningResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SmartBohner.Web.Shared.Resources.WarningResource", typeof(WarningResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
