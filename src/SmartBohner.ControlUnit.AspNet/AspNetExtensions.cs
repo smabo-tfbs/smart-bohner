@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SmartBohner.ControlUnit.Abstractions;
 using Microsoft.Extensions.Logging;
 using SmartBohner.Gpio.Abstractions;
+using SmartBohner.ControlUnit.Abstractions.Contracts;
 
 namespace SmartBohner.ControlUnit.AspNet
 {

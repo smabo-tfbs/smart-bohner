@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using SmartBohner.ControlUnit.Abstractions;
+using SmartBohner.ControlUnit.Abstractions.Contracts;
 using SmartBohner.Gpio.Abstractions;
 using System;
 using System.Collections.Generic;

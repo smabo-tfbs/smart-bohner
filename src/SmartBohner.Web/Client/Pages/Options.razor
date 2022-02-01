@@ -1,4 +1,5 @@
 ﻿@page "/options"
+@inject HttpClient client
 
 <header>
     <NavigationItem Title="Hauptmenü" Icon="house-fill" CardClicked="@(() => Nav.NavigateTo("home"))"></NavigationItem>
@@ -6,23 +7,57 @@
 <main>
     <div class="options-container">
         <div class="aroma-plus">
-            <OptionsGridCard DisplayText="Aroma-Plus"></OptionsGridCard>
+            <OptionsGridCard DisplayText="Aroma-Plus" CardClicked=@(async () => await OnCardClickedAsync(OptionType.AromaPlus))></OptionsGridCard>
         </div>
         <div class="water">
-            <OptionsGridCard DisplayText="Wasser"></OptionsGridCard>
+            <OptionsGridCard DisplayText="Wasser" CardClicked="@(async () => await OnCardClickedAsync(OptionType.HotWater))"></OptionsGridCard>
         </div>
         <div class="calc-clean">
-            <OptionsGridCard DisplayText="Entkalken"></OptionsGridCard>
+            <OptionsGridCard DisplayText="Entkalken" CardClicked=@(async () => await OnCardClickedAsync(OptionType.CalcClean))></OptionsGridCard>
         </div>
         <div class="water-steam">
-            <OptionsGridCard DisplayText="Wasserdampf"></OptionsGridCard>
+            <OptionsGridCard DisplayText="Wasserdampf" CardClicked=@(async () => await OnCardClickedAsync(OptionType.Steam))></OptionsGridCard>
         </div>
         <div class="power-off">
-            <OptionsGridCard DisplayText="Ausschalten"></OptionsGridCard>
+            <OptionsGridCard DisplayText="Ausschalten" CardClicked=@(async () => await OnCardClickedAsync(OptionType.Shutdown))></OptionsGridCard>
         </div>
     </div>
 </main>
 
 @code {
+    private async Task OnCardClickedAsync(OptionType optionType)
+    {
+        switch (optionType)
+        {
+            case OptionType.AromaPlus:
+                await client.PostAsync("api/maintenance/aromaplus", null);
+                break;
+            case OptionType.CalcClean:
+                await client.PostAsync("api/maintenance/calcclean", null);
+                break;
 
+            case OptionType.HotWater:
+                await client.PostAsync("api/maintenance/hotwater", null);
+                break;
+
+            case OptionType.Steam:
+                await client.PostAsync("api/maintenance/steam", null);
+                break;
+
+            case OptionType.Shutdown:
+                await client.PostAsync("api/coffeemachine/power/toggle", null);
+                break;
+            default: throw new NotSupportedException($"{optionType} is not supported");
+
+        }
+    }
+
+    private enum OptionType
+    {
+        AromaPlus,
+        CalcClean,
+        HotWater,
+        Steam,
+        Shutdown
+    }
 }

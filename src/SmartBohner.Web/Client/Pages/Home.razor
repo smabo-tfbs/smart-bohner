@@ -1,4 +1,6 @@
 ﻿@page "/home"
+@inject NavigationManager Nav
+@inject HttpClient client
 
 <header>
     <NavigationItem Title="Optionen" Icon="gear-fill" CardClicked="@(() => Nav.NavigateTo("options"))"></NavigationItem>
@@ -6,7 +8,7 @@
 </header>
 <main>
     <BrewingCard CoffeeType=@_brewingCards[0] ActiveChanged="() => OnChangeActive(0)"></BrewingCard>
-    <BrewingCard IsActive="true" CoffeeType=@_brewingCards[1]></BrewingCard>
+    <BrewingCard IsActive="true" Click=@CardClickAsync CoffeeType=@_brewingCards[1]></BrewingCard>
     <BrewingCard CoffeeType=@_brewingCards[2] ActiveChanged="() => OnChangeActive(2)"></BrewingCard>
 </main>
 <footer>
@@ -28,4 +30,17 @@
         _brewingCards[index] = currentActive;
     }
 
+    private async Task CardClickAsync(CoffeeType type)
+    {
+        Task<HttpResponseMessage> callback = type switch
+        {
+            CoffeeType.Coffee => client.GetAsync("api/coffee/coffee"),
+            CoffeeType.Espresso => client.GetAsync("api/coffee/espresso"),
+            CoffeeType.Lungo => client.GetAsync("api/coffee/lungo"),
+
+            _ => throw new ArgumentException(),
+        };
+
+        var response = await callback;
+    }
 }

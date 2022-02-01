@@ -33,7 +33,7 @@ namespace SmartBohner.Web.Server.Controllers
         {
             await _coffeeService.Lungo();
         }
-
+        
         /// <summary>
         /// Start coffee brewing process
         /// </summary>

@@ -1,4 +1,4 @@
-﻿namespace SmartBohner.ControlUnit.Abstractions
+﻿namespace SmartBohner.ControlUnit.Abstractions.Contracts
 {
     public enum PinEventType
     {

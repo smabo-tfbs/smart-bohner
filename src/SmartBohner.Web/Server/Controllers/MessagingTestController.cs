@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmartBohner.ControlUnit.Abstractions;
+using SmartBohner.ControlUnit.Abstractions.Contracts;
 
 namespace SmartBohner.Web.Server.Controllers
 {

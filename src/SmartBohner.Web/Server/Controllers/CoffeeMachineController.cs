@@ -20,7 +20,7 @@ namespace SmartBohner.Web.Server.Controllers
         /// Turn on coffee machine
         /// </summary>
         /// <returns></returns>
-        [HttpGet("Power/On")]
+        [HttpPost("Power/On")]
         public async Task On()
         {
             if (!await _coffeeMachineService.IsOn())
@@ -34,7 +34,7 @@ namespace SmartBohner.Web.Server.Controllers
         /// Turn off coffee machine
         /// </summary>
         /// <returns></returns>
-        [HttpGet("Power/Off")]
+        [HttpPost("Power/Off")]
         public async Task Off()
         {
             if (await _coffeeMachineService.IsOn())
@@ -44,11 +44,26 @@ namespace SmartBohner.Web.Server.Controllers
             }
         }
 
+        [HttpPost("Power/Toggle")]
+        public async Task Toggle()
+        {
+            if (await _coffeeMachineService.IsOn())
+            {
+                await _coffeeMachineService.Shutdown();
+                logger.LogWarning("Shutdown coffee machine on users request");
+            }
+            else
+            {
+                await _coffeeMachineService.Start();
+                logger.LogWarning("Start coffee machine on users request");
+            }
+        }
+
         /// <summary>
         /// Get coffee machine's status
         /// </summary>
         /// <returns>True: if coffee machine is on; otherwise false</returns>
-        [HttpGet("Power/Status")]
+        [HttpPost("Power/Status")]
         public async Task<bool> GetStatus()
         {
             return await _coffeeMachineService.IsOn();

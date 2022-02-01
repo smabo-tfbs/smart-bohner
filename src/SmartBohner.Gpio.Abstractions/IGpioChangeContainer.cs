@@ -1,4 +1,4 @@
-﻿using SmartBohner.ControlUnit.Abstractions;
+﻿using SmartBohner.ControlUnit.Abstractions.Contracts;
 
 namespace SmartBohner.Gpio.Abstractions
 {

@@ -1,5 +1,5 @@
 ﻿
-<div class="brewing-card @(IsActive ? "brewing-card-active" : "brewing-card-inactive")" @onclick="() => ActiveChanged.InvokeAsync()">
+<div class="brewing-card @(IsActive ? "brewing-card-active" : "brewing-card-inactive")" @onclick="async () => await OnClickAsync()">
     <div class="brewing-card-image @(IsActive ? "brewing-card-image-active" : "brewing-card-image-inactive")">
         <BrewingCardIcon CoffeeType=@_coffeeType IsActive=@IsActive></BrewingCardIcon>
     </div>
@@ -9,6 +9,10 @@
 @code {
     private string _cardText;
     private CoffeeType _coffeeType = CoffeeType.Coffee;
+
+    public BrewingCard()
+    {
+    }
 
     [Parameter]
     public bool IsActive { get; set; }
@@ -27,9 +31,22 @@
     [Parameter]
     public EventCallback ActiveChanged { get; set; }
 
+    [Parameter]
+    public Func<CoffeeType, Task>? Click { get; set; }
+
     protected override void OnInitialized()
     {
         Refresh();
+    }
+
+    private async Task OnClickAsync()
+    {
+        await ActiveChanged.InvokeAsync();
+
+        if (IsActive)
+        {
+            await Click?.Invoke(CoffeeType);
+        }
     }
 
     private void Refresh()
