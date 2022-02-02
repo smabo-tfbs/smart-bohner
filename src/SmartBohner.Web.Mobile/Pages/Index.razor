@@ -3,62 +3,60 @@
 @inject HttpClient http
 <style>
     body {
-        background-image: url(../css/icons_coffe/Wood.jpg);
+        background-image: url(../mobile/css/icons_coffe/Wood.jpg);
         background-color: #232323;
         color: ivory;
         font-family: Pacifico
     }
 
-    h1 {
-        text-align: center;
-    }
-
-    header {
-        color: red;
-    }
+   
 </style>
-    @if (visible == true)
-{
-  <div class="banner-info">
-     @messageText
-    <button type="button" class="button-float-right" onclick="@Dismiss">x</button>
-</div>
-}
-
 
 <PageTitle>Index</PageTitle>
+<header>
+    <h1>Willkommen beim Smartboner</h1>
+</header>
 
-<h1>Willkommen beim Smartbohener</h1>
 
-<button class="button-left" onclick="@MakeCoffee">Kaffee</button>
-<button class="button-center" onclick="@MakeEspresso">Espresso</button>
-<button class="button-right" onclick="@MakeEspressoLungo">Espresso Lungo</button>
+<main>
+<button class="button-main" @onclick="MakeCoffee">Kaffee</button>
+<button class="button-main" @onclick="MakeEspresso">Espresso</button>
+<button class="button-main" @onclick="MakeEspressoLungo">Espresso Lungo</button>
+</main>
+
+
+<footer>
+    <button class="button-footer">Wasser</button>
+    <button class="button-footer">Aroma Plus</button>
+    <button class="button-footer">Entkalken</button>
+    <button class="button-footer">Wasserdampf</button>
+    <button class="button-footer" @onclick="SwitchOff">AusSchalten</button>
+</footer>
+<Bannerinfo></Bannerinfo>
+ 
 
 
 
 @code {
     public async Task MakeCoffee()
     {
-        var data = await http.GetAsync("api/Coffee/Coffee");
-    
+        var data = await http.GetAsync("/api/Coffee/Coffee");
+
     }
     public async Task MakeEspresso()
     {
-    var data = await http.GetFromJsonAsync<Task>("api/Coffee/Espresso");
+        var data = await http.GetAsync("/api/Coffee/Espresso");
     }
     public async Task MakeEspressoLungo()
     {
-    var data = await http.GetFromJsonAsync<Task>("api/Coffee/Lungo");
+        var data = await http.GetAsync("/api/Coffee/Lungo");
+    }
+    public async Task SwitchOff()
+    {
+        var data = await http.GetAsync("/api/CoffeMaschine/ShutDown");
     }
     private bool visible = true;
 
-    public string messageText = "Hier gibts nix zu sehen.";
-    public async Task Dismiss()
-    {
-
-        visible = false;
-        StateHasChanged();
-        await Task.FromResult(visible);
-    }
+  
 
 }

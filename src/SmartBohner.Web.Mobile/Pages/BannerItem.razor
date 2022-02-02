@@ -1,0 +1,57 @@
+﻿@*@using SmartBohner.ControlUnit.Abstractions
+@using SmartBohner.Web.Shared.SignalR
+@implements IDisposable
+<div class=@currentStateOfBanner>
+    @messageText
+    <button type="button" class="button-float-right" onclick="@Dismiss.InvokeAsync()">x</button>
+</div>
+
+@code{
+    [Parameter]
+    public string messageText { get; set; }
+
+    [Parameter]
+    public EventCallback Dismiss { get; set; }
+
+    private const string DEFAULT = "warning-card";
+    private const string SLIDE_IN = "banner info-in";
+    private const string SLIDE_OUT = "banner info-out";
+
+    private string currentStateOfBanner = SLIDE_IN;
+
+    protected override void OnInitialized()
+    {
+        WarningHandler.Listen(OnWarningReceived);
+    }
+
+    private void OnWarningReceived(WarningResult result)
+    {
+        switch (result.MessageType)
+        {
+            case MessageType.NoWater:
+                messageText = WarningResource[nameof(MessageType.NoWater)];
+                //_currentCardState = _currentCardState == SLIDE_IN ? SLIDE_OUT : SLIDE_IN;
+                break;
+            case MessageType.WasteFull:
+                messageText = WarningResource[nameof(MessageType.WasteFull)];
+                break;
+            case MessageType.NoBeans:
+                messageText = WarningResource[nameof(MessageType.NoBeans)];
+                break;
+            case MessageType.Alarm:
+                messageText = WarningResource[nameof(MessageType.Alarm)];
+                break;
+            case MessageType.Clean:
+                messageText = WarningResource[nameof(MessageType.Clean)];
+                break;
+            case MessageType.CalcClean:
+                messageText = WarningResource[nameof(MessageType.CalcClean)];
+                break;
+            default:
+                break;
+        }
+
+        StateHasChanged();
+    }
+    public void Dispose() => WarningHandler.Stop();
+}*@
