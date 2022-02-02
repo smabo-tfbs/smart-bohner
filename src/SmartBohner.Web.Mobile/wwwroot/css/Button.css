@@ -1,11 +1,11 @@
 ﻿.button-left {
     background-color: #364244;
     color: #9B4E00;
-    width: 200px;
+    width: 600px;
     height: 200px;
     text-align:center;
     font-size: 32px;
-    float: inline-start;
+    /*float: inline-start;*/
     border: none;
     background-image: url('icons_coffe/coffee.svg');
     border-radius: 15%;
@@ -19,7 +19,7 @@
     height: 200px;
     text-align: center;
     font-size: 32px;
-    float: inline-start;
+   /* float: inline-start;*/
     border: none;
     background-image: url('icons_coffe/espresso.svg');
     image-resolution: initial;
@@ -35,7 +35,7 @@
     height: 200px;
     text-align: center;
     font-size: 32px;
-    float: inline-start;
+   /* float: inline-start;*/
     border: none;
     background-image: url('icons_coffe/espresso_lungo.svg');
     border-radius: 15%;
