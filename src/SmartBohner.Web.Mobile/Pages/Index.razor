@@ -1,47 +1,72 @@
 ﻿@page "/"
-@*@inject CoffeeController coffeeController*@
-
-
+@using System.Text.Json
+@inject HttpClient http
 <style>
-    body{background-color:#232323; color:#9B4E00; font-family:Pacifico} 
-    h1 {text-align:center;}
-    header{color:red;}
-    </style>
-    @if (visible == true)
-{
-    <div class="banner-info">
-                SAG ICH JA
-         <button @onclick="@Dismiss" class="float-right btn">OKI</button>
-    </div>     
-}
+    body {
+        background-image: url(../mobile/css/icons_coffe/Wood.jpg);
+        background-color: #232323;
+        color: ivory;
+        font-family: Pacifico
+    }
+</style>
+
 <PageTitle>Index</PageTitle>
+<header>
+    <h1>Willkommen beim Smartboner</h1>
+</header>
 
-<h1>Willkommen beim Smartbohener</h1>
 
-<button class="button-left" onclick="MakeCoffee">Kaffee</button>
-<button class="button-center" onclick="MakeEspresso" >Espresso</button>
-<button class="button-right" onclick="MakeEspressoLungo" >Espresso Lungo</button>
+<main>
+<button class="button-main" @onclick="MakeCoffee">Kaffee</button>
+<button class="button-main" @onclick="MakeEspresso">Espresso</button>
+<button class="button-main" @onclick="MakeEspressoLungo">Espresso Lungo</button>
+</main>
+
+
+<footer>
+    <button class="button-footer" @onclick="HotWater">Wasser</button>
+    <button class="button-footer" @onclick="AromaPlus">Aroma Plus</button>
+    <button class="button-footer" @onclick="Decalcify">Entkalken</button>
+    <button class="button-footer"@* @onclick ="Steam"*@>Wasserdampf</button>
+    <button class="button-footer" @onclick="SwitchOff">Ausschalten</button>
+</footer>
+<BannerItem></BannerItem>
+ 
 
 
 
 @code {
-    //public async Task MakeCoffee()
-    //{
-    //    await coffeeController.Coffee();
-    //}
-    //public async Task MakeEspresso()
-    //{
-    //    await coffeeController.Espresso();
-    //}
-    //public async Task MakeEspressoLungo()
-    //{
-    //    await coffeeController.Lungo();
-    //}
-    private bool visible = false;
-    public async Task<bool> Dismiss()
+    public async Task MakeCoffee()
     {
-      return visible == false;
-    
-    }
+        var data = await http.GetAsync("/api/Coffee/Coffee");
 
+    }
+    public async Task MakeEspresso()
+    {
+        var data = await http.GetAsync("/api/Coffee/Espresso");
+    }
+    public async Task MakeEspressoLungo()
+    {
+        var data = await http.GetAsync("/api/Coffee/Lungo");
+    }
+    public async Task SwitchOff()
+    {
+        var data = await http.PostAsync("/api/CoffeMaschine/ShutDown", null);
+    }
+    public async Task HotWater()
+    {
+        var data = await http.PostAsync("/api/Maintenance/hotwater", null);
+    }
+    public async Task AromaPlus()
+    {
+        var data = await http.PostAsync("/api/Maintenance/aromaplus", null);
+    }
+    public async Task Decalcify()
+    {
+        var data = await http.PostAsync("/api/Maintenance/calcclean", null);
+    }
+    public async Task Steam()
+    {
+        var data = await http.PostAsync("/api/Maintenance/steam", null);
+    }
 }

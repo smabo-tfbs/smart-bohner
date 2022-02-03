@@ -1,0 +1,129 @@
+﻿
+.button-main {
+    background-color: #364244;
+    color: #9B4E00;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    font-size: 32px;
+    background-image: url(../wwwroot/css/icons_coffe/espresso.svg);
+    border-radius: 15%;
+    top: 30px;
+    margin: 5px;
+}
+
+.button-float-right {
+    color: white;
+    font-size: 10px;
+    background-color: transparent;
+    float: right;
+    border-radius: 5px;
+    position:inherit;
+    top: 0px;
+    right: 0px;
+}
+.button-footer {
+    background-color: #364244;
+    color: #9B4E00;
+    height: 50px;
+    width: 110px;
+    border-radius: 20%;
+    margin: 7px;
+}
+
+.button-left:hover {
+    background-color: #424D4F;
+}
+
+.button-center:hover {
+    background-color: #424D4F;
+}
+
+.button-right:hover {
+    background-color: #424D4F;
+}
+
+.button-footer:hover {
+    background-color: #424D4F;
+}
+
+.banner-info {
+    padding: 10px;
+    width: auto;
+    height: 40px;
+    text-align: center;
+    background-color: yellow;
+    color: white;
+    font-size: 30px;
+    background-color: orange;
+    border-radius: 25px;
+    animation: our-fade-in-animation 12s infinite ease-in-out;
+}
+
+@keyframes warning-in {
+    0% {
+        margin-top: 120px;
+    }
+
+    25% {
+        margin-top: 90px;
+    }
+
+    50% {
+        margin-top: 60px;
+    }
+
+    75% {
+        margin-top: 30px;
+    }
+
+    100% {
+        margin-top: 0px;
+    }
+}
+
+@keyframes warning-out {
+    0% {
+        margin-top: 0px;
+    }
+
+    25% {
+        margin-top: 30px;
+    }
+
+    50% {
+        margin-top: 60px;
+    }
+
+    75% {
+        margin-top: 90px;
+    }
+
+    100% {
+        margin-top: 120px;
+    }
+}
+header {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    font-size: x-large;
+    align-items: center;
+    align-content:center;
+}
+
+main {
+    height: 420px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+footer {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

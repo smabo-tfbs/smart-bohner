@@ -1,13 +1,20 @@
 ﻿.banner-info {
     padding: 10px;
+    width: auto ;
+    height: 150px;
     text-align: center;
     background-color: yellow;
     background-repeat: repeat-x;
     color: white;
-    font-size: 50px;
+    font-size: 30px;
     background-color: orange;
     border-radius: 25px;
-    animation: 12s infinite ease-in-out;
+    animation: our-fade-in-animation 12s infinite ease-in-out;
+}
+.sidebar {
+    background-color: saddlebrown;
+}
+.backgoung-class {
+    background-image: url(../css/icons_coffe/Wood.jpg)
 }
 
-   
