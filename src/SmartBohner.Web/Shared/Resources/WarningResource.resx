@@ -126,11 +126,23 @@
   <data name="Clean" xml:space="preserve">
     <value>TODO</value>
   </data>
+  <data name="Coffee" xml:space="preserve">
+    <value>Kaffee wird zubereitet</value>
+  </data>
+  <data name="Espresso" xml:space="preserve">
+    <value>Espresso wird zubereitet</value>
+  </data>
+  <data name="Lungo" xml:space="preserve">
+    <value>Lungo wird zubereitet</value>
+  </data>
   <data name="NoBeans" xml:space="preserve">
     <value>Bohnen füllen!</value>
   </data>
   <data name="NoWater" xml:space="preserve">
     <value>Wasser füllen!</value>
+  </data>
+  <data name="Steam" xml:space="preserve">
+    <value>Wasserdampf</value>
   </data>
   <data name="WasteFull" xml:space="preserve">
     <value>Kaffeesatz leeren!</value>

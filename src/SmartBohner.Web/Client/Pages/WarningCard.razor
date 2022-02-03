@@ -15,6 +15,9 @@
     private Timer _timer;
     private MessageType? _lastMessageType = null;
 
+    [Parameter]
+    public EventCallback<bool> HasWarningChanged { get; set; }
+
     protected override void OnInitialized()
     {
         WarningHandler.Listen(OnWarningReceived);
@@ -27,6 +30,7 @@
             if (_lastMessageType is null)
             {
                 _currentCardState = SLIDE_IN;
+                HasWarningChanged.InvokeAsync(true);
             }
 
             _lastMessageType = result.MessageType;
@@ -38,13 +42,14 @@
 
     private void RefreshTimer()
     {
-        _timer = new Timer(5000);
+        _timer = new Timer(2000);
         _timer.Elapsed += (s, e) =>
         {
             _currentCardState = SLIDE_OUT;
             _lastMessageType = null;
             _timer.Dispose();
 
+            HasWarningChanged.InvokeAsync(true);
             StateHasChanged();
         };
 

@@ -12,10 +12,12 @@
     <BrewingCard CoffeeType=@_brewingCards[2] ActiveChanged="() => OnChangeActive(2)"></BrewingCard>
 </main>
 <footer>
-    <WarningCard></WarningCard>
+    <WarningCard HasWarningChanged=@OnHasWarningChange></WarningCard>
 </footer>
 
 @code {
+    private bool _hasWarning;
+
     private List<CoffeeType> _brewingCards = new List<CoffeeType>
     {
         CoffeeType.Espresso,
@@ -25,22 +27,30 @@
 
     private void OnChangeActive(int index)
     {
-        var currentActive = _brewingCards[1];
-        _brewingCards[1] = _brewingCards[index];
-        _brewingCards[index] = currentActive;
+        if (!_hasWarning)
+        {
+            var currentActive = _brewingCards[1];
+            _brewingCards[1] = _brewingCards[index];
+            _brewingCards[index] = currentActive;
+        }
     }
+
+    private void OnHasWarningChange(bool hasWarning) => _hasWarning = hasWarning;
 
     private async Task CardClickAsync(CoffeeType type)
     {
-        Task<HttpResponseMessage> callback = type switch
+        if (!_hasWarning)
         {
-            CoffeeType.Coffee => client.GetAsync("api/coffee/coffee"),
-            CoffeeType.Espresso => client.GetAsync("api/coffee/espresso"),
-            CoffeeType.Lungo => client.GetAsync("api/coffee/lungo"),
+            Task<HttpResponseMessage> callback = type switch
+            {
+                CoffeeType.Coffee => client.GetAsync("api/coffee/coffee"),
+                CoffeeType.Espresso => client.GetAsync("api/coffee/espresso"),
+                CoffeeType.Lungo => client.GetAsync("api/coffee/lungo"),
 
-            _ => throw new ArgumentException(),
-        };
+                _ => throw new ArgumentException(),
+            };
 
-        var response = await callback;
+            var response = await callback;
+        }
     }
 }

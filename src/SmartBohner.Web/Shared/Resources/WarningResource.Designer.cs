@@ -88,6 +88,33 @@ namespace SmartBohner.Web.Shared.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Kaffee wird zubereitet.
+        /// </summary>
+        public static string Coffee {
+            get {
+                return ResourceManager.GetString("Coffee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Espresso wird zubereitet.
+        /// </summary>
+        public static string Espresso {
+            get {
+                return ResourceManager.GetString("Espresso", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lungo wird zubereitet.
+        /// </summary>
+        public static string Lungo {
+            get {
+                return ResourceManager.GetString("Lungo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bohnen füllen!.
         /// </summary>
         public static string NoBeans {
@@ -102,6 +129,15 @@ namespace SmartBohner.Web.Shared.Resources {
         public static string NoWater {
             get {
                 return ResourceManager.GetString("NoWater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wasserdampf.
+        /// </summary>
+        public static string Steam {
+            get {
+                return ResourceManager.GetString("Steam", resourceCulture);
             }
         }
         
