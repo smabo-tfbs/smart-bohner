@@ -8,8 +8,6 @@
         color: ivory;
         font-family: Pacifico
     }
-
-   
 </style>
 
 <PageTitle>Index</PageTitle>
@@ -26,13 +24,13 @@
 
 
 <footer>
-    <button class="button-footer">Wasser</button>
-    <button class="button-footer">Aroma Plus</button>
-    <button class="button-footer">Entkalken</button>
-    <button class="button-footer">Wasserdampf</button>
-    <button class="button-footer" @onclick="SwitchOff">AusSchalten</button>
+    <button class="button-footer" @onclick="HotWater">Wasser</button>
+    <button class="button-footer" @onclick="AromaPlus">Aroma Plus</button>
+    <button class="button-footer" @onclick="Decalcify">Entkalken</button>
+    <button class="button-footer" @onclick ="Steam">Wasserdampf</button>
+    <button class="button-footer" @onclick="SwitchOff">Ausschalten</button>
 </footer>
-<Bannerinfo></Bannerinfo>
+<BannerItem></BannerItem>
  
 
 
@@ -53,10 +51,22 @@
     }
     public async Task SwitchOff()
     {
-        var data = await http.GetAsync("/api/CoffeMaschine/ShutDown");
+        var data = await http.PostAsync("/api/CoffeMaschine/ShutDown", null);
     }
-    private bool visible = true;
-
-  
-
+    public async Task HotWater()
+    {
+        var data = await http.PostAsync("/api/Maintenance/hotwater", null);
+    }
+    public async Task AromaPlus()
+    {
+        var data = await http.PostAsync("/api/Maintenance/aromaplus", null);
+    }
+    public async Task Decalcify()
+    {
+        var data = await http.PostAsync("/api/Maintenance/calcclean", null);
+    }
+    public async Task Steam()
+    {
+        var data = await http.PostAsync("/api/Maintenance/steam", null);
+    }
 }
