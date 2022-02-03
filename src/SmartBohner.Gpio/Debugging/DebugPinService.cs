@@ -17,10 +17,10 @@ namespace SmartBohner.Gpio.Debugging
             return Task.CompletedTask;
         }
 
-        public Task<string> GetPin(int pin)
+        public Task<PinInfo> GetPin(int pin)
         {
             logger.LogInformation($"Not supported");
-            return Task.FromResult(Pin.High);
+            return Task.FromResult(PinInfo.HighPin);
         }
 
         public Task OpenPin(int pin)

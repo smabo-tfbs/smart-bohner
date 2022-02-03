@@ -22,5 +22,11 @@
         /// </summary>
         /// <returns></returns>
         Task Shutdown();
+
+        /// <summary>
+        /// Send a signal to hard-shutdown the cofffee-machine
+        /// </summary>
+        /// <returns></returns>
+        Task Reset();
     }
 }

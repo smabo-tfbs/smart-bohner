@@ -23,7 +23,7 @@ namespace SmartBohner.ControlUnit
 
         public Task ExecuteHotWater()
         {
-            return pinSwitcher.Send2Port(22);
+            return pinSwitcher.Send2Port(15);
         }
 
         public Task ExecuteSteam()
@@ -36,7 +36,7 @@ namespace SmartBohner.ControlUnit
         public async Task ToggleAromaPlus(bool newValue)
         {
             var pinStatus = await pinService.GetPin(7);
-            var needChange = pinStatus == Pin.High == newValue;
+            var needChange = pinStatus == PinInfo.HighPin == newValue;
 
             if (needChange)
             {

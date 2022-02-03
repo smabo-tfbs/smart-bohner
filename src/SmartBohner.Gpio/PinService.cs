@@ -22,17 +22,17 @@ namespace SmartBohner.Gpio
             controller.Write(pin, PinValue.Low);
         }
 
-        public async Task<string> GetPin(int pin)
+        public async Task<PinInfo> GetPin(int pin)
         {
             var pinValue = controller.Read(pin);
 
             if (pinValue == PinValue.High)
             {
-                return Pin.High;
+                return PinInfo.HighPin;
             }
             else if (pinValue == PinValue.Low)
             {
-                return Pin.Low;
+                return PinInfo.LowPin;
             }
             else
             {

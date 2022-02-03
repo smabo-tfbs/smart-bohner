@@ -17,12 +17,29 @@
 
         Task ClosePin(int pin);
 
-        Task<string> GetPin(int pin);
+        Task<PinInfo> GetPin(int pin);
     }
 
-    public static class Pin
+    public class PinInfo
     {
-        public const string High = "HIGH";
-        public const string Low = "LOW";
+        public static PinInfo HighPin => new PinInfo("HIGH");
+        public static PinInfo LowPin => new PinInfo("Low");
+
+        public PinInfo(string value)
+        {
+            Value = value;
+        }
+
+        public string Value { get; }
+
+        public static bool operator ==(PinInfo pin, string value)
+        {
+            return pin.Value == value;
+        }
+
+        public static bool operator !=(PinInfo pin, string value)
+        {
+            return pin.Value != value;
+        }
     }
 }

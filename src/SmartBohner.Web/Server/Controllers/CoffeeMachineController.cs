@@ -68,5 +68,11 @@ namespace SmartBohner.Web.Server.Controllers
         {
             return await _coffeeMachineService.IsOn();
         }
+
+        [HttpPost("power/reset")]
+        public Task Reset()
+        {
+            return _coffeeMachineService.Reset();
+        }
     }
 }

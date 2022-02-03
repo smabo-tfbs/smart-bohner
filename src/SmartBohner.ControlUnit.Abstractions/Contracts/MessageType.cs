@@ -11,5 +11,10 @@
         Alarm,
         Clean,
         CalcClean,
+
+        Coffee,
+        Lungo,
+        Espresso,
+        Steam,
     }
 }

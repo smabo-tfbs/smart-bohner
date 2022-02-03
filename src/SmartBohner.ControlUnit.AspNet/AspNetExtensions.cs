@@ -60,26 +60,22 @@ namespace SmartBohner.ControlUnit.AspNet
 
         private static void InitMessagingServiceInternal(this WebApplication app)
         {
-            var messenger = app.Services.GetService<IMaintenanceMessagingService>();
             var gpioChangeContainer = app.Services.GetService<IGpioChangeContainer>();
-            var logger = app.Services.GetService<ILogger<IMaintenanceMessagingService>>();
 
-            if (messenger is null
-                || gpioChangeContainer is null)
+            if (gpioChangeContainer is null)
             {
                 throw new ArgumentNullException();
             }
 
+            gpioChangeContainer.Add(1, MessageType.Espresso);
+            gpioChangeContainer.Add(5, MessageType.Lungo);
+            gpioChangeContainer.Add(6, MessageType.Coffee);
             gpioChangeContainer.Add(13, MessageType.CalcClean);
             gpioChangeContainer.Add(19, MessageType.Clean);
             gpioChangeContainer.Add(16, MessageType.NoWater);
             gpioChangeContainer.Add(26, MessageType.WasteFull);
             gpioChangeContainer.Add(20, MessageType.NoBeans);
             gpioChangeContainer.Add(21, MessageType.Alarm);
-
-
-            messenger.Subscribe(async x => logger.LogInformation("No water!!!"), MessageType.NoWater);
-
         }
     }
 }

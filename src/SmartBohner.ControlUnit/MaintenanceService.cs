@@ -58,8 +58,8 @@ namespace SmartBohner.ControlUnit
         private async Task<bool> PinIsHigh(int pin)
         {
             var state = await pinService.GetPin(pin);
-            logger.LogInformation($"Pin {pin} is {state}");
-            return state == Pin.High;
+            logger.LogInformation($"Pin {pin} is {state.Value}");
+            return !state == PinInfo.HighPin;
         }
     }
 }
