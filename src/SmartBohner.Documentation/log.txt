@@ -1,0 +1,1 @@
+{"message":"No metadata is generated for SmartBohner.Documentation.","source":"MetadataCommand.ExtractMetadata","date_time":"2022-02-02T17:23:18.6339812Z","message_severity":"warning","correlation_id":"BEA38E5A-05C2-4D9A-9FEF-AB574B945D3D.1.1.11"}
