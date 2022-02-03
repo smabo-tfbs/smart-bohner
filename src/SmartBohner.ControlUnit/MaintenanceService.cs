@@ -59,7 +59,7 @@ namespace SmartBohner.ControlUnit
         {
             var state = await pinService.GetPin(pin);
             logger.LogInformation($"Pin {pin} is {state.Value}");
-            return !state == PinInfo.HighPin;
+            return !(state == PinInfo.HighPin);
         }
     }
 }
