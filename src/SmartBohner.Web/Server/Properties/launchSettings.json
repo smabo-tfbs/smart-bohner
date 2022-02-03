@@ -3,14 +3,15 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:58215",
-      "sslPort": 44387
+      "applicationUrl": "http://localhost:50288/",
+      "sslPort": 44317
     }
   },
   "profiles": {
     "SmartBohner.Web.Server": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "https://localhost:7265/mobile",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
@@ -29,7 +30,7 @@
     "WSL": {
       "commandName": "WSL2",
       "launchBrowser": true,
-      "launchUrl": "https://localhost:7265",
+      "launchUrl": "https://localhost:7265/mobile",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ASPNETCORE_URLS": "https://localhost:7265;http://localhost:5265"

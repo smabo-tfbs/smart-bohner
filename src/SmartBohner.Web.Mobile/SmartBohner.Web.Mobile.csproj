@@ -5,6 +5,7 @@
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<StaticWebAssetBasePath>mobile</StaticWebAssetBasePath>
+		<UserSecretsId>eaedc1c5-ccc7-471b-956d-d2a3eac1926d</UserSecretsId>
 	</PropertyGroup>
 
 	<ItemGroup>

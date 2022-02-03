@@ -1,0 +1,58 @@
+﻿@using SmartBohner.ControlUnit.Abstractions
+@using SmartBohner.ControlUnit.Abstractions.Contracts
+@using SmartBohner.Web.Shared.Resources
+@using SmartBohner.Web.Shared.SignalR
+@implements IDisposable
+<div class=@_currentCardState>
+        @(WarningResource.ResourceManager.GetString(_lastMessageType.ToString()))
+</div>
+
+@code{
+       
+private const string DEFAULT = "banner-info";
+    private const string SLIDE_IN = "banner-info warning-card-in";
+    private const string SLIDE_OUT = "banner-info warning-card-out";
+
+    private string _currentCardState = DEFAULT;
+
+    private Timer _timer;
+    private MessageType? _lastMessageType = null;
+
+    protected override void OnInitialized()
+    {
+        WarningHandler.Listen(OnWarningReceived);
+    }
+
+    private void OnWarningReceived(WarningResult result)
+    {
+        if (result.PinEventType == PinEventType.Rising)
+        {
+            if (_lastMessageType is null)
+            {
+                _currentCardState = SLIDE_IN;
+            }
+
+            _lastMessageType = result.MessageType;
+            RefreshTimer();
+        }
+        
+        StateHasChanged();
+    }
+
+    private void RefreshTimer()
+    {
+        _timer = new Timer(5000);
+        _timer.Elapsed += (s, e) =>
+        {
+            _currentCardState = SLIDE_OUT;
+            _lastMessageType = null;
+            _timer.Dispose();
+
+            StateHasChanged();
+        };
+
+        _timer.Enabled = true;
+    }
+
+    public void Dispose() => WarningHandler.Stop();
+}
